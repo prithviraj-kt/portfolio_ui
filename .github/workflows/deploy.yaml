@@ -3,7 +3,7 @@ name: Portfolio UI CICD pipeline
 on:
   push:
     branches:
-      - main   # 👈 or 'master' if that's your default branch
+      - main
 
 jobs:
   deploy:
