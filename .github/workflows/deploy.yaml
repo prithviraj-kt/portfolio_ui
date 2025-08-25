@@ -1,9 +1,9 @@
-name: Deploy React App to S3
+name: Portfolio UI CICD pipeline
 
 on:
   push:
     branches:
-      - main   # 👈 change if your main branch is 'master'
+      - main   # 👈 or 'master' if that's your default branch
 
 jobs:
   deploy:
@@ -16,7 +16,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18   # 👈 Use Node 18 for Vite
+          node-version: 18
 
       - name: Install dependencies
         run: npm install
@@ -33,4 +33,4 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
-          SOURCE_DIR: dist   
+          SOURCE_DIR: dist

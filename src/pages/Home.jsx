@@ -9,7 +9,7 @@ import Contact from '../sections/Contact'
 const Home = () => {
   return (
     <>
-      <Hero />
+      {/* <Hero /> */}
       <Education />
       <Experience />
       {/* <Achievements /> */}
