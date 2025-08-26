@@ -29,8 +29,9 @@ const Hero = () => {
   useEffect(() => {
     const options = {
       strings: [
-        'Full stack Developer',
+        'Software Developer',
         'Gen AI Engineer',
+        'Machine Learning Engineer',
         'Creative Thinker',
         'Problem Solver'
       ],
@@ -84,8 +85,8 @@ const Hero = () => {
   const socialLinks = [
     { icon: <FaLinkedin />, url: 'https://linkedin.com', label: 'LinkedIn' },
     { icon: <FaGithub />, url: 'https://github.com', label: 'GitHub' },
-    { icon: <FaTwitter />, url: 'https://twitter.com', label: 'Twitter' },
-    { icon: <FaBehance />, url: 'https://behance.net', label: 'Behance' }
+    // { icon: <FaTwitter />, url: 'https://twitter.com', label: 'Twitter' },
+    // { icon: <FaBehance />, url: 'https://behance.net', label: 'Behance' }
   ]
   
   return (
