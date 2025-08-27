@@ -28,7 +28,7 @@ const ScrollToTop = () => {
 
   return (
     <AnimatePresence>
-      {isVisible && (
+      { (
         <motion.button
           className="scroll-to-top"
           onClick={scrollToTop}
@@ -55,7 +55,7 @@ const ScrollToTop = () => {
             zIndex: 999
           }}
         >
-          <FaArrowUp />
+          
         </motion.button>
       )}
     </AnimatePresence>

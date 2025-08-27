@@ -6,7 +6,7 @@ import Home from "./pages/Home";
 import BubbleBackground from "./components/BubbleBackground";
 import Loader from "./components/Loader";
 import CursorFollower from "./components/CursorFollower";
-import ScrollToTop from "./components/ScrollToTop";
+import ChatWithAI from "./components/ChatWithAI";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -30,7 +30,7 @@ function App() {
             <CursorFollower />
             <BubbleBackground />
             <Navbar />
-            <ScrollToTop />
+            {/* <ChatWithAI /> */}
             <main className="">
               {" "}
               {/* pt-20 = 80px top padding */}
