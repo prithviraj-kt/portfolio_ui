@@ -77,12 +77,12 @@ const Navbar = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            
+            {/* Logo content here */}
           </motion.h2>
         </Link>
       </div>
 
-      {/* Desktop menu */}
+      {/* Desktop/Mobile Scrollable menu */}
       <motion.ul
         className="nav-links"
         style={{
@@ -91,8 +91,15 @@ const Navbar = () => {
           listStyle: 'none',
           margin: 0,
           padding: 0,
+          // Add these styles for horizontal scrolling
+          flexWrap: 'nowrap',
+          overflowX: 'auto',
+          MsOverflowStyle: 'none', /* Hide scrollbar for IE and Edge */
+          scrollbarWidth: 'none', /* Hide scrollbar for Firefox */
+          // Hide desktop menu on mobile
           '@media (max-width: 768px)': {
-            display: 'none'
+            // NOTE: This inline media query doesn't work. We need to do it another way.
+            // Let's use JavaScript for now as per previous attempt.
           }
         }}
         initial={{ opacity: 0 }}
@@ -103,6 +110,7 @@ const Navbar = () => {
           <motion.li key={link.id}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
+            style={{ flexShrink: 0 }} // Prevents links from shrinking
           >
             <Link
               to={link.id}
@@ -126,83 +134,75 @@ const Navbar = () => {
         ))}
       </motion.ul>
 
-      {/* Mobile hamburger */}
-      <motion.button
-        className="hamburger"
-        onClick={toggleMenu}
-        style={{
-          background: 'none',
-          border: 'none',
-          cursor: 'pointer',
-          color: 'var(--text-primary)',
-          fontSize: '1.5rem',
-          display: 'none',
-          '@media (max-width: 768px)': {
-            display: 'block'
-          }
-        }}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-      >
-        {isOpen ? <FaTimes /> : <FaBars />}
-      </motion.button>
+      {/* Mobile hamburger - No longer needed for horizontal scroll */}
+      {/* <motion.button
+          className="hamburger"
+          onClick={toggleMenu}
+          style={{
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            color: 'var(--text-primary)',
+            fontSize: '1.5rem',
+            display: 'none',
+            '@media (max-width: 768px)': {
+              display: 'block'
+            }
+          }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+        >
+          {isOpen ? <FaTimes /> : <FaBars />}
+        </motion.button>
+      */}
 
-      {/* Mobile menu */}
-      <motion.div
-        className="mobile-menu glass"
-        initial={{ opacity: 0, height: 0 }}
-        animate={{
-          opacity: isOpen ? 1 : 0,
-          height: isOpen ? 'auto' : 0,
-          display: isOpen ? 'block' : 'none'
-        }}
-        transition={{ duration: 0.3 }}
-        style={{
-          position: 'absolute',
-          top: '100%',
-          left: 0,
-          right: 0,
-          overflow: 'hidden',
-          '@media (min-width: 769px)': {
-            display: 'none'
-          }
-        }}
-      >
-        <ul style={{
-          listStyle: 'none',
-          padding: '1rem',
-          margin: 0,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '1rem'
-        }}>
-          {navLinks.map((link) => (
-            <motion.li 
-              key={link.id}
-              whileHover={{ x: 10 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Link
-                to={link.id}
-                spy={true}
-                smooth={true}
-                offset={-70}
-                duration={500}
-                onClick={() => setIsOpen(false)}
-                style={{
-                  display: 'block',
-                  padding: '0.5rem',
-                  cursor: 'pointer',
-                  color: 'var(--text-primary)',
-                  textDecoration: 'none'
-                }}
+      {/* Mobile menu - No longer needed for horizontal scroll */}
+      {/*
+        <motion.div
+          className="mobile-menu glass"
+          initial={{ opacity: 0, height: 0 }}
+          animate={{
+            opacity: isOpen ? 1 : 0,
+            height: isOpen ? 'auto' : 0,
+            display: isOpen ? 'block' : 'none'
+          }}
+          transition={{ duration: 0.3 }}
+          style={{
+            position: 'absolute',
+            top: '100%',
+            left: 0,
+            right: 0,
+            overflow: 'hidden',
+            '@media (min-width: 769px)': {
+              display: 'none'
+            }
+          }}
+        >
+          <ul style={{
+            listStyle: 'none',
+            padding: '1rem',
+            margin: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '1rem'
+          }}>
+            {navLinks.map((link) => (
+              <motion.li 
+                key={link.id}
+                whileHover={{ x: 10 }}
+                whileTap={{ scale: 0.95 }}
               >
-                {link.label}
-              </Link>
-            </motion.li>
-          ))}
-        </ul>
-      </motion.div>
+                <Link
+                  to={link.id}
+                  // ... (rest of mobile link props)
+                >
+                  {link.label}
+                </Link>
+              </motion.li>
+            ))}
+          </ul>
+        </motion.div>
+      */}
     </motion.nav>
   )
 }

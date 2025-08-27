@@ -485,7 +485,7 @@ const Projects = () => {
   };
 
   return (
-    <section id="projects" ref={ref}>
+    <section  id="projects" ref={ref}>
       <div className="container">
         <SectionTitle
           title="Projects"
