@@ -8,6 +8,7 @@ import {
   FaGithub,
   FaTwitter,
   FaInstagram,
+  FaPhone
 } from "react-icons/fa";
 import SectionTitle from "../components/SectionTitle";
 
@@ -161,6 +162,12 @@ const Contact = () => {
       title: "Email",
       value: "prithvirajtagadinamani@gmail.com",
       link: "mailto:prithvirajtagadinamani@gmail.com",
+    },
+    {
+      icon: <FaPhone />,
+      title: "Phone",
+      value: "9353968791",
+      link: "",
     },
     {
       icon: <FaMapMarkerAlt />,

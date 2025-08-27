@@ -21,35 +21,35 @@ const Projects = () => {
 
   const projectsData = [
     {
-  "id": 1,
-  "title": "Neura Interview",
-  "category": ["web", "genai"],
-  "image": "https://images.pexels.com/photos/1181371/pexels-photo-1181371.jpeg?auto=compress&cs=tinysrgb&w=600",
-  "description": [
-    "Built an AI-powered interview preparation and applicant tracking system using React.js and Express.js.",
-    "Integrated Google Sign-In with Firebase for seamless authentication and secured routes via Express middleware.",
-    "Implemented an intelligent ATS to parse resumes and match candidate profiles with job requirements.",
-    "Developed a practice interview module leveraging Gemini for generating role-specific questions and real-time feedback.",
-    "Used PostgreSQL with Prisma ORM for structured data persistence and scalable queries.",
-    "Designed a responsive and clean UI with Tailwind CSS and shadcn/ui components for accessibility and consistency."
-  ],
-  "techStack": [
-    "reactjs",
-    "typescript",
-    "expressjs",
-    "nodejs",
-    "postgresql",
-    "prisma",
-    "firebase auth",
-    "gemini live voice to voice model",
-    "tailwind css",
-    "shad cn",
-    "AWS"
-  ],
-  "liveLink": "https://your-neura-interview-demo.com",
-  "githubLink": "https://stately-lebkuchen-6c9d18.netlify.app/"
-}
-,
+      id: 1,
+      title: "Neura Interview",
+      category: ["web", "genai"],
+      image:
+        "https://images.pexels.com/photos/1181371/pexels-photo-1181371.jpeg?auto=compress&cs=tinysrgb&w=600",
+      description: [
+        "Built an AI-powered interview preparation and applicant tracking system using React.js and Express.js.",
+        "Integrated Google Sign-In with Firebase for seamless authentication and secured routes via Express middleware.",
+        "Implemented an intelligent ATS to parse resumes and match candidate profiles with job requirements.",
+        "Developed a practice interview module leveraging Gemini for generating role-specific questions and real-time feedback.",
+        "Used PostgreSQL with Prisma ORM for structured data persistence and scalable queries.",
+        "Designed a responsive and clean UI with Tailwind CSS and shadcn/ui components for accessibility and consistency.",
+      ],
+      techStack: [
+        "reactjs",
+        "typescript",
+        "expressjs",
+        "nodejs",
+        "postgresql",
+        "prisma",
+        "firebase auth",
+        "gemini live voice to voice model",
+        "tailwind css",
+        "shad cn",
+        "AWS",
+      ],
+      liveLink: "https://your-neura-interview-demo.com",
+      githubLink: "https://stately-lebkuchen-6c9d18.netlify.app/",
+    },
     {
       id: 0,
       title: "Auto Site Builder",
@@ -111,7 +111,7 @@ const Projects = () => {
         "bootstrap",
       ],
       liveLink: "https://your-lets-workout-demo.com",
-      githubLink: " https://github.com/prithviraj-kt/AI-FIT-GURU-FRONTEND.git",
+      githubLink: "https://ai-fitness-guru-8e733.web.app/",
       featured: true,
     },
     {
@@ -170,39 +170,37 @@ const Projects = () => {
         "reactjs",
       ],
       liveLink: "https://your-nft-project-demo.com",
-      githubLink: "https://github.com/prithviraj-kt/authentication-of-nft-using-python",
+      githubLink:
+        "https://github.com/prithviraj-kt/authentication-of-nft-using-python",
     },
     {
       id: 4,
-      title: "E-Commerce Platform",
+      title: "EcoCart - ecofriendly ecommerce",
       category: ["web"],
       image:
         "https://images.pexels.com/photos/5632402/pexels-photo-5632402.jpeg?auto=compress&cs=tinysrgb&w=600",
       description: [
-        "Built a full-featured e-commerce web application using Next.js and MongoDB.",
-        "Styled the interface with Tailwind CSS for a modern and responsive design.",
-        "Implemented dynamic product listing, filtering, and detailed product pages.",
-        "Developed a secure authentication system for users and admin.",
-        "Integrated a dedicated admin dashboard to add, update, and delete products.",
-        "Enabled cart and checkout functionalities with real-time updates.",
-        "Used MongoDB for efficient data storage and retrieval of users and products.",
-        "Focused on performance, user experience, and scalability.",
+        "Developed an eco-friendly e-commerce platform with dual portals for buyers and sellers using ReactJS and the Gemini model.",
+        "For buyers: Implemented personalized eco-friendly product recommendations, a Green Coins reward system, gamification leaderboard by pin code, progress bar for coupon redemption, and group buying features.",
+        "Enabled buyers to return packaging materials to reduce carbon footprint, with incentives tied to sustainability actions.",
+        "For sellers: Designed a system to calculate average carbon footprint per category and track each product’s impact, rewarding sellers with Green Coins for sustainable contributions.",
+        "Integrated dynamic product listing, filtering, secure authentication, and detailed product pages.",
+        "Created a dedicated seller/admin dashboard to manage products with add, update, and delete functionality.",
+        "Implemented cart, checkout, and real-time updates for smooth transactions.",
+        "Focused on performance, gamification, user experience, and environmental impact awareness.",
       ],
       techStack: [
         "html",
         "css",
         "javascript",
+        "typescript",
         "tailwind css",
         "reactjs",
-        "nextjs",
-        "mongodb",
-        "odm",
-        "mongoose",
+        "gemini",
       ],
-      liveLink: "https://your-ecommerce-demo.com",
-      githubLink: "",
+      liveLink: "",
+      githubLink: "http://github.com/prithviraj-kt/EcoCart",
     },
-
     {
       id: 5,
       title: "Digi Elective",
@@ -355,7 +353,7 @@ const Projects = () => {
   };
 
   return (
-    <section  id="projects" ref={ref}>
+    <section id="projects" ref={ref}>
       <div className="container">
         <SectionTitle
           title="Projects"

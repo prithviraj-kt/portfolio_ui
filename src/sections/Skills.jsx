@@ -86,7 +86,7 @@ const skillCategories = [
   },
   {
     id: "machine learing",
-    title: "Machine Learning and Tools",
+    title: "Data Science and Tools",
     icon: <FaDatabase />,
     color: "var(--accent-700)",
     skills: [
