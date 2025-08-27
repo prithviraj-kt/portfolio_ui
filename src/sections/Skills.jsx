@@ -290,7 +290,7 @@ const Skills = () => {
                       <div
                         style={{
                           height: "8px",
-                          background: "var(--dark-bg)",
+                          background: "var(--bg-primary)",
                           borderRadius: "4px",
                           overflow: "hidden",
                         }}
@@ -328,7 +328,7 @@ const Skills = () => {
                 top: "25%",
                 left: "10px",
                 transform: "translateY(-25%)",
-                background: "var(--dark-card)",
+                background: "var(--bg-card)",
                 color: "var(--text-primary)",
                 border: "none",
                 borderRadius: "50%",
@@ -357,7 +357,7 @@ const Skills = () => {
                 top: "25%",
                 right: "10px",
                 transform: "translateY(-25%)",
-                background: "var(--dark-card)",
+                background: "var(--bg-card)",
                 color: "var(--text-primary)",
                 border: "none",
                 borderRadius: "50%",

@@ -1,95 +1,133 @@
-import { useRef, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { useRef, useEffect } from "react";
+import { motion } from "framer-motion";
+import { useTheme } from "../context/ThemeContext";
 
-const BUBBLE_COUNT = 15
-const COLORS = [
-  'rgba(33, 150, 243, 0.3)',  // primary
-  'rgba(0, 188, 212, 0.3)',   // secondary
-  'rgba(255, 193, 7, 0.3)',   // accent
-]
+const BUBBLE_COUNT = 15;
 
 const BubbleBackground = () => {
-  const canvasRef = useRef(null)
-  const bubbles = useRef([])
-  
+  const canvasRef = useRef(null);
+  const bubbles = useRef([]);
+  const { isDark } = useTheme();
+
   useEffect(() => {
-    const canvas = canvasRef.current
-    const ctx = canvas.getContext('2d')
-    let animationFrameId
-    
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    let animationFrameId;
+
     const handleResize = () => {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
-      
-      // Reinitialize bubbles
-      initBubbles()
-    }
-    
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      initBubbles();
+    };
+
     const initBubbles = () => {
-      bubbles.current = []
-      
+      bubbles.current = [];
+
       for (let i = 0; i < BUBBLE_COUNT; i++) {
-        const size = Math.random() * 100 + 50
+        const size = Math.random() * 100 + 50;
+        const baseOpacity = isDark ? 0.1 : 0.3; // Higher opacity for light theme
+        const opacity = baseOpacity + Math.random() * 0.2;
+
         bubbles.current.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
           size,
-          color: COLORS[Math.floor(Math.random() * COLORS.length)],
           speedX: (Math.random() - 0.5) * 0.5,
           speedY: (Math.random() - 0.5) * 0.5,
-          opacity: Math.random() * 0.5 + 0.1
-        })
+          opacity,
+          pulse: Math.random() * Math.PI * 2,
+        });
       }
-    }
-    
+    };
+
     const render = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-      
-      bubbles.current.forEach(bubble => {
-        ctx.beginPath()
-        ctx.arc(bubble.x, bubble.y, bubble.size, 0, Math.PI * 2)
-        ctx.fillStyle = bubble.color.replace(')', `, ${bubble.opacity})`)
-        ctx.fill()
-        
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      bubbles.current.forEach((bubble) => {
+        ctx.beginPath();
+        ctx.arc(bubble.x, bubble.y, bubble.size, 0, Math.PI * 2);
+
+        // Subtle pulsing effect
+        const pulseOpacity = bubble.opacity + Math.sin(bubble.pulse) * 0.05;
+
+        // Set colors based on theme
+        if (isDark) {
+          // Dark theme: subtle blue/cyan bubbles
+          const colors = [
+            `rgba(255, 0, 0, ${pulseOpacity})`, // red
+            `rgba(255, 165, 0, ${pulseOpacity})`, // orange
+            `rgba(255, 255, 0, ${pulseOpacity})`, // yellow
+            `rgba(0, 255, 0, ${pulseOpacity})`, // green
+            `rgba(0, 0, 255, ${pulseOpacity})`, // blue
+            `rgba(75, 0, 130, ${pulseOpacity})`, // indigo
+            `rgba(238, 130, 238, ${pulseOpacity})`, // violet
+            `rgba(255, 20, 147, ${pulseOpacity})`, // deep pink
+            `rgba(0, 255, 255, ${pulseOpacity})`, // cyan
+          ];
+
+          ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
+        } else {
+          // Light theme: light grey bubbles
+          const colors = [
+            `rgba(200, 200, 200, ${pulseOpacity})`, // light grey
+            // `rgba(180, 180, 180, ${pulseOpacity})`,   // medium light grey
+            // `rgba(220, 220, 220, ${pulseOpacity})`,   // very light grey
+          ];
+          ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        ctx.fill();
+
         // Move bubbles
-        bubble.x += bubble.speedX
-        bubble.y += bubble.speedY
-        
+        bubble.x += bubble.speedX;
+        bubble.y += bubble.speedY;
+        bubble.pulse += 0.02;
+
         // Bounce off walls
-        if (bubble.x < 0 || bubble.x > canvas.width) bubble.speedX *= -1
-        if (bubble.y < 0 || bubble.y > canvas.height) bubble.speedY *= -1
-      })
-      
-      animationFrameId = requestAnimationFrame(render)
-    }
-    
-    window.addEventListener('resize', handleResize)
-    handleResize()
-    render()
-    
+        if (bubble.x < 0 || bubble.x > canvas.width) bubble.speedX *= -1;
+        if (bubble.y < 0 || bubble.y > canvas.height) bubble.speedY *= -1;
+
+        // Keep bubbles in bounds
+        bubble.x = Math.max(
+          bubble.size,
+          Math.min(canvas.width - bubble.size, bubble.x)
+        );
+        bubble.y = Math.max(
+          bubble.size,
+          Math.min(canvas.height - bubble.size, bubble.y)
+        );
+      });
+
+      animationFrameId = requestAnimationFrame(render);
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    render();
+
     return () => {
-      window.removeEventListener('resize', handleResize)
-      cancelAnimationFrame(animationFrameId)
-    }
-  }, [])
-  
+      window.removeEventListener("resize", handleResize);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [isDark]);
+
   return (
     <motion.canvas
       ref={canvasRef}
       style={{
-        position: 'fixed',
+        position: "fixed",
         top: 0,
         left: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: -1,
-        opacity: 0
+        width: "100%",
+        height: "100%",
+        zIndex: -2,
+        pointerEvents: "none",
       }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
     />
-  )
-}
+  );
+};
 
-export default BubbleBackground
+export default BubbleBackground;

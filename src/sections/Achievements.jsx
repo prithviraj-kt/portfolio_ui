@@ -119,15 +119,20 @@ const Achievements = () => {
               whileHover={{ y: -8 }}
               className="achievement-card"
               style={{
-                background: 'var(--dark-surface)',
-                borderRadius: '12px',
+                background: 'rgba(255, 255, 255, 0.1)',
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
+                borderRadius: '16px',
                 padding: 'var(--spacing-4)',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'flex-start',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                boxShadow: 'var(--shadow-lg)',
                 cursor: 'default',
-                transition: 'all 0.3s ease'
+                transition: 'all 0.3s ease',
+                position: 'relative',
+                overflow: 'hidden'
               }}
             >
               <div
@@ -146,7 +151,7 @@ const Achievements = () => {
               >
                 {achievement.icon}
               </div>
-              <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.1rem', color: 'white' }}>
+              <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.1rem', color: 'var(--text-primary)' }}>
                 {achievement.title}
               </h3>
               <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>

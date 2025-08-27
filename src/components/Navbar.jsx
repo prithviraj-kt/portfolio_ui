@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FaBars, FaTimes } from 'react-icons/fa'
+import { FaBars, FaTimes, FaSun, FaMoon } from 'react-icons/fa'
+import { useTheme } from '../context/ThemeContext'
 
 const navLinks = [
   { id: 'home', label: 'Home' },
@@ -17,6 +18,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('home')
   const [isMobile, setIsMobile] = useState(false)
+  const { isDark, toggleTheme } = useTheme()
 
   const toggleMenu = () => setIsOpen(!isOpen)
 
@@ -119,12 +121,12 @@ const Navbar = () => {
           backdropFilter: 'blur(12px)',
           WebkitBackdropFilter: 'blur(12px)',
           backgroundColor: scrolled 
-            ? 'rgba(10, 10, 10, 0.95)' 
-            : 'rgba(10, 10, 10, 0.85)',
+            ? 'rgba(var(--bg-primary-rgb), 0.95)' 
+            : 'rgba(var(--bg-primary-rgb), 0.85)',
           borderBottom: scrolled 
-            ? '1px solid rgba(59, 130, 246, 0.2)' 
-            : '1px solid rgba(255, 255, 255, 0.05)',
-          boxShadow: scrolled ? '0 4px 20px rgba(0, 0, 0, 0.3)' : 'none',
+            ? '1px solid var(--border-color-hover)' 
+            : '1px solid var(--border-color)',
+          boxShadow: scrolled ? '0 4px 20px var(--shadow-color)' : 'none',
         }}
       >
         <div style={{
@@ -196,7 +198,7 @@ const Navbar = () => {
                       border: 'none',
                       cursor: 'pointer',
                       fontWeight: activeSection === link.id ? '600' : '500',
-                      color: activeSection === link.id ? '#3b82f6' : '#e2e8f0',
+                      color: activeSection === link.id ? '#3b82f6' : 'var(--text-primary)',
                       textDecoration: 'none',
                       padding: '0.75rem 1.25rem',
                       borderRadius: '0.75rem',
@@ -210,14 +212,16 @@ const Navbar = () => {
                     }}
                     onMouseEnter={(e) => {
                       if (activeSection !== link.id) {
-                        e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.08)'
-                        e.target.style.color = '#ffffff'
+                        e.target.style.backgroundColor = isDark ? 'rgba(59, 130, 246, 0.1)' : 'rgba(59, 130, 246, 0.08)'
+                        e.target.style.color = '#3b82f6'
+                        e.target.style.transform = 'translateY(-2px)'
                       }
                     }}
                     onMouseLeave={(e) => {
                       if (activeSection !== link.id) {
                         e.target.style.backgroundColor = 'transparent'
-                        e.target.style.color = '#e2e8f0'
+                        e.target.style.color = 'var(--text-primary)'
+                        e.target.style.transform = 'translateY(0)'
                       }
                     }}
                   >
@@ -234,7 +238,7 @@ const Navbar = () => {
                             left: '1.25rem',
                             right: '1.25rem',
                             height: '2px',
-                            backgroundColor: '#3b82f6',
+                            background: 'linear-gradient(90deg, #3b82f6, #00bcd4)',
                             borderRadius: '2px',
                           }}
                           initial={{ scaleX: 0, opacity: 0 }}
@@ -255,6 +259,52 @@ const Navbar = () => {
             </motion.ul>
           )}
 
+          {/* Theme Toggle Button */}
+          <motion.button
+            onClick={toggleTheme}
+            whileHover={{ 
+              scale: 1.15, 
+              rotate: 180,
+              boxShadow: isDark 
+                ? '0 0 20px rgba(251, 191, 36, 0.4)' 
+                : '0 0 20px rgba(59, 130, 246, 0.4)'
+            }}
+            whileTap={{ scale: 0.9 }}
+            style={{
+              background: 'none',
+              border: '2px solid transparent',
+              cursor: 'pointer',
+              color: isDark ? '#fbbf24' : '#3b82f6',
+              fontSize: '1.2rem',
+              padding: '0.6rem',
+              borderRadius: '0.5rem',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transition: 'all 0.3s ease',
+              backgroundColor: isDark ? 'rgba(251, 191, 36, 0.1)' : 'rgba(59, 130, 246, 0.1)',
+              borderColor: isDark ? 'rgba(251, 191, 36, 0.3)' : 'rgba(59, 130, 246, 0.3)',
+              boxShadow: isDark 
+                ? '0 0 10px rgba(251, 191, 36, 0.2)' 
+                : '0 0 10px rgba(59, 130, 246, 0.2)',
+            }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.5, duration: 0.5 }}
+          >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={isDark ? 'sun' : 'moon'}
+                initial={{ rotate: -90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: 90, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                {isDark ? <FaSun /> : <FaMoon />}
+              </motion.div>
+            </AnimatePresence>
+          </motion.button>
+
           {/* Mobile Hamburger Menu */}
           {isMobile && (
             <motion.button
@@ -274,11 +324,13 @@ const Navbar = () => {
                 transition: 'all 0.3s ease',
                 backgroundColor: isOpen ? 'rgba(59, 130, 246, 0.1)' : 'transparent',
                 borderColor: isOpen ? 'rgba(59, 130, 246, 0.3)' : 'transparent',
+                boxShadow: isOpen ? '0 0 15px rgba(59, 130, 246, 0.3)' : 'none',
               }}
               whileHover={{ 
                 scale: 1.1,
                 backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                borderColor: 'rgba(59, 130, 246, 0.3)'
+                borderColor: 'rgba(59, 130, 246, 0.3)',
+                boxShadow: '0 0 15px rgba(59, 130, 246, 0.3)'
               }}
               whileTap={{ scale: 0.9 }}
               initial={{ opacity: 0 }}
@@ -306,10 +358,10 @@ const Navbar = () => {
         {isMobile && isOpen && (
           <motion.div
             className="mobile-menu"
-            initial={{ opacity: 0, y: -20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            transition={{ duration: 0.3, ease: 'easeOut' }}
+            initial={{ opacity: 0, y: -20, scale: 0.95, rotateX: -15 }}
+            animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
+            exit={{ opacity: 0, y: -20, scale: 0.95, rotateX: -15 }}
+            transition={{ duration: 0.4, ease: 'easeOut' }}
             style={{
               position: 'fixed',
               top: '80px',
@@ -318,10 +370,10 @@ const Navbar = () => {
               zIndex: 999,
               backdropFilter: 'blur(12px)',
               WebkitBackdropFilter: 'blur(12px)',
-              backgroundColor: 'rgba(10, 10, 10, 0.95)',
+              backgroundColor: 'rgba(var(--bg-primary-rgb), 0.95)',
               borderRadius: '1rem',
-              border: '1px solid rgba(59, 130, 246, 0.2)',
-              boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5)',
+              border: '1px solid var(--border-color-hover)',
+              boxShadow: '0 10px 30px var(--shadow-color)',
               overflow: 'hidden',
             }}
           >
@@ -332,20 +384,56 @@ const Navbar = () => {
               display: 'flex',
               flexDirection: 'column',
             }}>
-              {navLinks.map((link, index) => (
-                <motion.li 
-                  key={link.id}
-                  initial={{ opacity: 0, x: -30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -30 }}
-                  transition={{ 
-                    delay: 0.05 * index,
-                    duration: 0.3,
-                    ease: 'easeOut'
-                  }}
-                  whileHover={{ x: 8 }}
+              {/* Mobile Theme Toggle */}
+              <motion.li
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -30 }}
+                transition={{ delay: 0.02, duration: 0.3, ease: 'easeOut' }}
+                style={{
+                  borderBottom: '1px solid var(--border-color)',
+                  marginBottom: '0.5rem',
+                }}
+              >
+                <motion.button
+                  onClick={toggleTheme}
+                  whileHover={{ x: 10 }}
                   whileTap={{ scale: 0.98 }}
+                  style={{
+                    width: '100%',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    color: isDark ? '#fbbf24' : '#3b82f6',
+                    padding: '1rem 1.5rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.75rem',
+                    fontSize: '1rem',
+                    fontFamily: 'inherit',
+                    fontWeight: '500',
+                    transition: 'all 0.3s ease',
+                  }}
                 >
+                  {isDark ? <FaSun /> : <FaMoon />}
+                  <span>Switch to {isDark ? 'Light' : 'Dark'} Mode</span>
+                </motion.button>
+              </motion.li>
+              
+              {navLinks.map((link, index) => (
+                                  <motion.li 
+                    key={link.id}
+                    initial={{ opacity: 0, x: -30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -30 }}
+                    transition={{ 
+                      delay: 0.05 * index,
+                      duration: 0.3,
+                      ease: 'easeOut'
+                    }}
+                    whileHover={{ x: 8, scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
                   <button
                     onClick={() => scrollToSection(link.id)}
                     style={{
@@ -354,7 +442,7 @@ const Navbar = () => {
                       border: 'none',
                       cursor: 'pointer',
                       fontWeight: activeSection === link.id ? '600' : '500',
-                      color: activeSection === link.id ? '#3b82f6' : '#e2e8f0',
+                      color: activeSection === link.id ? '#3b82f6' : 'var(--text-primary)',
                       textDecoration: 'none',
                       padding: '1rem 1.5rem',
                       display: 'flex',
@@ -370,12 +458,14 @@ const Navbar = () => {
                     }}
                     onTouchStart={(e) => {
                       e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.05)'
+                      e.target.style.transform = 'scale(0.98)'
                     }}
                     onTouchEnd={(e) => {
                       setTimeout(() => {
                         if (activeSection !== link.id) {
                           e.target.style.backgroundColor = 'transparent'
                         }
+                        e.target.style.transform = 'scale(1)'
                       }, 150)
                     }}
                   >
@@ -386,12 +476,14 @@ const Navbar = () => {
                         style={{
                           width: '3px',
                           height: '24px',
-                          backgroundColor: '#3b82f6',
+                          background: 'linear-gradient(180deg, #3b82f6, #00bcd4)',
                           marginRight: '1rem',
                           borderRadius: '2px',
+                          boxShadow: '0 0 10px rgba(59, 130, 246, 0.5)',
                         }}
-                        initial={{ height: 0 }}
-                        animate={{ height: '24px' }}
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: '24px', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.3 }}
                       />
                     )}
@@ -420,10 +512,11 @@ const Navbar = () => {
               left: 0,
               right: 0,
               bottom: 0,
-              backgroundColor: 'rgba(0, 0, 0, 0.6)',
+              backgroundColor: isDark ? 'rgba(0, 0, 0, 0.6)' : 'rgba(0, 0, 0, 0.3)',
               zIndex: 998,
               backdropFilter: 'blur(2px)',
             }}
+            transition={{ duration: 0.3 }}
           />
         )}
       </AnimatePresence>

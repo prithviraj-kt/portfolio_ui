@@ -341,14 +341,16 @@ const Projects = () => {
 
   const filterVariants = {
     active: {
-      backgroundColor: "var(--primary-600)",
+      background: "var(--gradient-primary)",
       color: "white",
       scale: 1.05,
+      boxShadow: "var(--shadow-lg), 0 0 20px rgba(102, 126, 234, 0.3)"
     },
     inactive: {
-      backgroundColor: "var(--dark-card)",
+      background: "var(--gradient-surface)",
       color: "var(--text-primary)",
       scale: 1,
+      boxShadow: "var(--shadow-md)"
     },
   };
 
@@ -422,10 +424,15 @@ const Projects = () => {
                 className="project-card"
                 style={{
                   marginBottom: "30px",
-                  background: "var(--dark-card)",
-                  borderRadius: "12px",
+                  background: "rgba(255, 255, 255, 0.1)",
+                  borderRadius: "16px",
                   overflow: "hidden",
                   position: "relative",
+                  border: "1px solid rgba(255, 255, 255, 0.2)",
+                  boxShadow: "var(--shadow-lg)",
+                  backdropFilter: "blur(20px)",
+                  WebkitBackdropFilter: "blur(20px)",
+                  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
                 }}
               >
                 <div
@@ -518,11 +525,13 @@ const Projects = () => {
                       <span
                         key={index}
                         style={{
-                          padding: "2px 8px",
-                          borderRadius: "4px",
+                          padding: "4px 12px",
+                          borderRadius: "20px",
                           fontSize: "0.8rem",
-                          background: "var(--dark-surface)",
-                          color: "var(--text-secondary)",
+                          background: "var(--gradient-secondary)",
+                          color: "white",
+                          fontWeight: "500",
+                          boxShadow: "var(--shadow-sm)"
                         }}
                       >
                         {tech}
@@ -531,11 +540,13 @@ const Projects = () => {
                     {project.techStack.length > 3 && (
                       <span
                         style={{
-                          padding: "2px 8px",
-                          borderRadius: "4px",
+                          padding: "4px 12px",
+                          borderRadius: "20px",
                           fontSize: "0.8rem",
-                          background: "var(--dark-surface)",
-                          color: "var(--text-secondary)",
+                          background: "var(--gradient-accent)",
+                          color: "white",
+                          fontWeight: "500",
+                          boxShadow: "var(--shadow-sm)"
                         }}
                       >
                         +{project.techStack.length - 3}
@@ -622,9 +633,9 @@ const Projects = () => {
                   width: "100%",
                   maxWidth: "900px",
                   maxHeight: "90vh",
-                  background: "var(--dark-surface)",
+                  background: "var(--bg-surface)",
                   borderRadius: "12px",
-                  overflow: "auto",
+                  overflow: "hidden",
                   position: "relative",
                 }}
               >
@@ -634,7 +645,7 @@ const Projects = () => {
                     position: "absolute",
                     top: "15px",
                     right: "15px",
-                    background: "var(--dark-bg)",
+                    background: "var(--bg-primary)",
                     border: "none",
                     borderRadius: "50%",
                     width: "40px",
@@ -645,6 +656,7 @@ const Projects = () => {
                     cursor: "pointer",
                     zIndex: 10,
                     fontSize: "1.2rem",
+                    color: "var(--text-primary)"
                   }}
                 >
                   ✕
@@ -689,22 +701,38 @@ const Projects = () => {
                   </div>
                 </div>
 
-                <div style={{ padding: "30px" }}>
-                  <p
+                <div style={{ 
+                  padding: "30px",
+                  overflowY: "auto",
+                  maxHeight: "calc(90vh - 400px)"
+                }}>
+                  <div
                     style={{
                       marginBottom: "20px",
                       lineHeight: 1.6,
                     }}
                   >
-                    {selectedProject.description.map((item, idx) => (
-                      <li
-                        key={idx}
-                        style={{ marginBottom: "10px", lineHeight: "1.6" }}
-                      >
-                        {item}
-                      </li>
-                    ))}
-                  </p>
+                    <ul style={{
+                      margin: 0,
+                      paddingLeft: "20px",
+                      wordWrap: "break-word",
+                      overflowWrap: "break-word"
+                    }}>
+                      {selectedProject.description.map((item, idx) => (
+                        <li
+                          key={idx}
+                          style={{ 
+                            marginBottom: "10px", 
+                            lineHeight: "1.6",
+                            wordWrap: "break-word",
+                            overflowWrap: "break-word"
+                          }}
+                        >
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
 
                   <div style={{ marginBottom: "20px" }}>
                     <h4 style={{ marginBottom: "10px" }}>Technologies Used</h4>
@@ -736,21 +764,9 @@ const Projects = () => {
                     style={{
                       display: "flex",
                       gap: "15px",
+                      flexWrap: "wrap"
                     }}
                   >
-                    {/* <a
-                      href={selectedProject.liveLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn btn-primary"
-                      style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: "8px",
-                      }}
-                    >
-                      <FaExternalLinkAlt /> Live Demo
-                    </a> */}
                     <a
                       href={selectedProject.githubLink}
                       target="_blank"

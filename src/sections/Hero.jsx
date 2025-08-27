@@ -157,7 +157,7 @@ const Hero = () => {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                background: "var(--dark-card)",
+                                  background: "var(--bg-card)",
               }}
             >
               <img src={image} alt="Hero" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
@@ -202,7 +202,7 @@ const Hero = () => {
                     justifyContent: "center",
                     fontSize: "1.2rem",
                     color: "var(--text-primary)",
-                    background: "var(--dark-card)",
+                    background: "var(--bg-card)",
                     transition: "all 0.3s ease",
                   }}
                 >

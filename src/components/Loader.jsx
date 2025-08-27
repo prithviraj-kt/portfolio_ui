@@ -36,7 +36,7 @@ const Loader = () => {
         left: 0,
         width: '100vw',
         height: '100vh',
-        background: 'var(--dark-bg)',
+        background: 'var(--bg-primary)',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',

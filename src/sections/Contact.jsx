@@ -303,7 +303,7 @@ const Contact = () => {
                       width: "40px",
                       height: "40px",
                       borderRadius: "50%",
-                      background: "var(--dark-card)",
+                      background: "var(--bg-card)",
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
@@ -404,14 +404,28 @@ const Contact = () => {
                       onChange={handleChange}
                       style={{
                         width: "100%",
-                        padding: "10px 12px",
-                        borderRadius: "8px",
-                        background: "var(--dark-bg)",
+                        padding: "12px 16px",
+                        borderRadius: "12px",
+                        background: "var(--gradient-surface)",
                         border: errors.name
-                          ? "1px solid var(--error-500)"
-                          : "1px solid var(--dark-surface)",
+                          ? "2px solid var(--error-500)"
+                          : "2px solid var(--border-color)",
                         color: "var(--text-primary)",
                         fontSize: "1rem",
+                        transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                        boxShadow: "var(--shadow-sm)",
+                        backdropFilter: "blur(10px)",
+                        WebkitBackdropFilter: "blur(10px)"
+                      }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = "var(--primary-500)";
+                        e.target.style.boxShadow = "var(--shadow-md), 0 0 0 3px rgba(59, 130, 246, 0.1)";
+                        e.target.style.transform = "translateY(-2px)";
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = errors.name ? "var(--error-500)" : "var(--border-color)";
+                        e.target.style.boxShadow = "var(--shadow-sm)";
+                        e.target.style.transform = "translateY(0)";
                       }}
                     />
                     {errors.name && (
@@ -445,14 +459,28 @@ const Contact = () => {
                       onChange={handleChange}
                       style={{
                         width: "100%",
-                        padding: "10px 12px",
-                        borderRadius: "8px",
-                        background: "var(--dark-bg)",
+                        padding: "12px 16px",
+                        borderRadius: "12px",
+                        background: "var(--gradient-surface)",
                         border: errors.email
-                          ? "1px solid var(--error-500)"
-                          : "1px solid var(--dark-surface)",
+                          ? "2px solid var(--error-500)"
+                          : "2px solid var(--border-color)",
                         color: "var(--text-primary)",
                         fontSize: "1rem",
+                        transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                        boxShadow: "var(--shadow-sm)",
+                        backdropFilter: "blur(10px)",
+                        WebkitBackdropFilter: "blur(10px)"
+                      }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = "var(--primary-500)";
+                        e.target.style.boxShadow = "var(--shadow-md), 0 0 0 3px rgba(59, 130, 246, 0.1)";
+                        e.target.style.transform = "translateY(-2px)";
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = errors.email ? "var(--error-500)" : "var(--border-color)";
+                        e.target.style.boxShadow = "var(--shadow-sm)";
+                        e.target.style.transform = "translateY(0)";
                       }}
                     />
                     {errors.email && (
@@ -486,14 +514,28 @@ const Contact = () => {
                       onChange={handleChange}
                       style={{
                         width: "100%",
-                        padding: "10px 12px",
-                        borderRadius: "8px",
-                        background: "var(--dark-bg)",
+                        padding: "12px 16px",
+                        borderRadius: "12px",
+                        background: "var(--gradient-surface)",
                         border: errors.subject
-                          ? "1px solid var(--error-500)"
-                          : "1px solid var(--dark-surface)",
+                          ? "2px solid var(--error-500)"
+                          : "2px solid var(--border-color)",
                         color: "var(--text-primary)",
                         fontSize: "1rem",
+                        transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                        boxShadow: "var(--shadow-sm)",
+                        backdropFilter: "blur(10px)",
+                        WebkitBackdropFilter: "blur(10px)"
+                      }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = "var(--primary-500)";
+                        e.target.style.boxShadow = "var(--shadow-md), 0 0 0 3px rgba(59, 130, 246, 0.1)";
+                        e.target.style.transform = "translateY(-2px)";
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = errors.subject ? "var(--error-500)" : "var(--border-color)";
+                        e.target.style.boxShadow = "var(--shadow-sm)";
+                        e.target.style.transform = "translateY(0)";
                       }}
                     />
                     {errors.subject && (
@@ -527,15 +569,29 @@ const Contact = () => {
                       onChange={handleChange}
                       style={{
                         width: "100%",
-                        padding: "10px 12px",
-                        borderRadius: "8px",
-                        background: "var(--dark-bg)",
+                        padding: "12px 16px",
+                        borderRadius: "12px",
+                        background: "var(--gradient-surface)",
                         border: errors.message
-                          ? "1px solid var(--error-500)"
-                          : "1px solid var(--dark-surface)",
+                          ? "2px solid var(--error-500)"
+                          : "2px solid var(--border-color)",
                         color: "var(--text-primary)",
                         fontSize: "1rem",
                         resize: "vertical",
+                        transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                        boxShadow: "var(--shadow-sm)",
+                        backdropFilter: "blur(10px)",
+                        WebkitBackdropFilter: "blur(10px)"
+                      }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = "var(--primary-500)";
+                        e.target.style.boxShadow = "var(--shadow-md), 0 0 0 3px rgba(59, 130, 246, 0.1)";
+                        e.target.style.transform = "translateY(-2px)";
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = errors.message ? "var(--error-500)" : "var(--border-color)";
+                        e.target.style.boxShadow = "var(--shadow-sm)";
+                        e.target.style.transform = "translateY(0)";
                       }}
                     />
                     {errors.message && (
@@ -642,7 +698,7 @@ const Contact = () => {
           marginTop: "var(--spacing-6)",
           padding: "var(--spacing-4) 0",
           textAlign: "center",
-          borderTop: "1px solid var(--dark-surface)",
+          borderTop: "1px solid var(--bg-surface)",
         }}
       >
         <div className="container">

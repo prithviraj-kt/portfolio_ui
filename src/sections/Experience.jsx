@@ -116,12 +116,32 @@ const Experience = () => {
               }}
               icon={item.icon}
               visible={inView}
+              contentStyle={{
+                background: 'rgba(255, 255, 255, 0.1)',
+                color: 'var(--text-primary)',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
+                borderRadius: '16px',
+                boxShadow: 'var(--shadow-lg)',
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)'
+              }}
+              contentArrowStyle={{ borderRight: '7px solid rgba(255, 255, 255, 0.2)' }}
+              date="2023 - Present"
+              iconStyle={{
+                background: 'var(--gradient-secondary)',
+                color: '#fff',
+                boxShadow: 'var(--shadow-md)'
+              }}
+              icon={<FaBriefcase />}
             >
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: index * 0.2 }}
                 className="experience-content"
+                style={{
+                  color: 'var(--text-primary)',
+                }}
               >
                 <div
                   className="company-info"
