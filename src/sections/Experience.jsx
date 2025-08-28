@@ -47,7 +47,7 @@ const Experience = () => {
     {
       role: "Software Engineer Intern",
       company: "Restoca",
-      date: "April 2022 – July 2022",
+      date: "March 2022 – June 2022",
       description:
         "Led the development of a smart restaurant management system with QR-based ordering and advanced table filtering, boosting service speed and operational efficiency.",
       responsibilities: [
@@ -107,14 +107,14 @@ const Experience = () => {
               className="vertical-timeline-element--work"
               date={item.date}
               dateClassName="timeline-date"
-              iconStyle={{
-                background: item.iconBg,
-                color: "#fff",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-              icon={item.icon}
+              // iconStyle={{
+              //   background: item.iconBg,
+              //   color: "#fff",
+              //   display: "flex",
+              //   alignItems: "center",
+              //   justifyContent: "center",
+              // }}
+              // icon={item.icon}
               visible={inView}
               contentStyle={{
                 background: 'rgba(255, 255, 255, 0.1)',
@@ -126,7 +126,6 @@ const Experience = () => {
                 WebkitBackdropFilter: 'blur(20px)'
               }}
               contentArrowStyle={{ borderRight: '7px solid rgba(255, 255, 255, 0.2)' }}
-              date="2023 - Present"
               iconStyle={{
                 background: 'var(--gradient-secondary)',
                 color: '#fff',

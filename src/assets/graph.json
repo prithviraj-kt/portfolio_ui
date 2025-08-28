@@ -1,0 +1,208 @@
+{
+  "nodes": [
+    {
+      "id": "user1",
+      "type": "Person",
+      "name": "Prithviraj K Tagadinamani",
+      "title": [
+        "Software Developer",
+        "Gen AI Engineer",
+        "Machine Learning Engineer",
+        "Creative Thinker",
+        "Problem Solver"
+      ],
+      "linkedin": "https://www.linkedin.com/in/prithviraj-tagadinamani-934709196",
+      "github": "https://github.com/prithviraj-kt",
+      "email": "prithvirajtagadinamani@gmail.com",
+      "phone": "+91-9353968791",
+      "address": "India, Karnataka, Hubli",
+      "description": "Driven developer who crafts elegant, high-performance, user-centric digital experiences. Leveraging AI and cutting-edge technologies to solve real-world problems and drive innovation."
+    },
+
+    {
+      "id": "edu1",
+      "type": "Education",
+      "institution": "Indian Institute of Technology, Guwahati",
+      "degree": "M.Tech in Data Science",
+      "date": "2024-2026",
+      "grade": "CPI: 7.14",
+      "skills": [
+        "Machine Learning", "Deep Learning", "NLP", "Computer Vision", "LLM",
+        "Transformers", "Generative AI", "Agentic AI", "RAG", "Fine Tuning", "Voice AI Agents"
+      ]
+    },
+    {
+      "id": "edu2",
+      "type": "Education",
+      "institution": "KLE Institute of Technology",
+      "degree": "B.E. in Computer Science",
+      "date": "2019-2023",
+      "grade": "CPI: 9.08",
+      "skills": [
+        "DSA","OOPS","System Design","DBMS","Networking","Cloud Computing",
+        "Blockchain","JavaScript","ReactJS","NodeJS","ExpressJS","MongoDB",
+        "REST APIs","WebSockets","Python","Flask","FastAPI","Java","C","C++",
+        "Git","CI/CD","Docker","Firebase","AWS"
+      ]
+    },
+    {
+      "id": "edu3",
+      "type": "Education",
+      "institution": "Prerana Pu Science College",
+      "degree": "PCMB",
+      "date": "2017-2019",
+      "grade": "81.67%"
+    },
+    {
+      "id": "edu4",
+      "type": "Education",
+      "institution": "ST Michaels High School",
+      "degree": "KSEEB",
+      "date": "2017",
+      "grade": "94.08%"
+    },
+
+    {
+      "id": "exp1",
+      "type": "Experience",
+      "role": "Full Stack Developer Intern",
+      "company": "Osnil Web Solutions",
+      "date": "Nov 2022 – Apr 2023",
+      "description": "Built ERP system integrating Amazon SP-API to track warehouses, automate inventory sync and improve operations.",
+      "technologies": ["React","Next.js","Tailwind","Node.js","Express","MongoDB","REST APIs","Amazon SP-API"]
+    },
+    {
+      "id": "exp2",
+      "type": "Experience",
+      "role": "Software Engineer Intern",
+      "company": "Restoca",
+      "date": "Mar 2022 – Jun 2022",
+      "description": "Developed QR-based restaurant management system, real-time sync with WebSockets and optimized workflows.",
+      "technologies": ["React","Tailwind","Node.js","Express","MongoDB","WebSockets","Redux"]
+    },
+    {
+      "id": "exp3",
+      "type": "Experience",
+      "role": "Backend Developer Intern",
+      "company": "Youniv",
+      "date": "Dec 2021 – Jan 2022",
+      "description": "Integrated Algolia and Firebase for real-time search and built post system with Firebase Storage.",
+      "technologies": ["Next.js","React","Bootstrap","Firebase"]
+    },
+
+    { "id": "ach1", "type": "Achievement", "title": "Keynote Speaker", "description": "Chief Guest at Codenex Tech Event, 200+ audience" },
+    { "id": "ach2", "type": "Achievement", "title": "Technical Judge", "description": "Judged 30+ projects for GDSC Thinkubator & IEEE Ideathon" },
+    { "id": "ach3", "type": "Achievement", "title": "Technical Mentor", "description": "Mentored 30+ teams at Advitiya Hackathon 2023" },
+    { "id": "ach4", "type": "Achievement", "title": "300+ DSA Problems", "description": "Solved 300+ problems, demonstrating strong problem-solving" },
+    { "id": "ach5", "type": "Achievement", "title": "Educator", "description": "Conducted 5+ workshops on Git, Blockchain, Web Dev for 500+ students" },
+    { "id": "ach6", "type": "Achievement", "title": "Placement Coordinator", "description": "Facilitated 500+ student placements" },
+    { "id": "ach7", "type": "Achievement", "title": "National Abacus Champion", "description": "1st place among 5000+ participants" },
+    { "id": "ach8", "type": "Achievement", "title": "Leadership Recognition", "description": "Awarded 'Best Boy of the Year'" },
+
+    {
+      "id": "proj1",
+      "type": "Project",
+      "title": "Auto Site Builder",
+      "description": "AI-assisted website builder using Next.js, Gemini 2.5 Pro, WebContainers",
+      "techStack": ["Next.js","React","Tailwind","Shadcn","Gemini 2.5 Pro","WebContainers"]
+    },
+    {
+      "id": "proj2",
+      "type": "Project",
+      "title": "Neura Interview",
+      "description": "AI-powered interview prep & ATS system with Gemini integration",
+      "techStack": ["React","Express","Postgres","Prisma","Gemini","Tailwind","Firebase"]
+    },
+    {
+      "id": "proj3",
+      "type": "Project",
+      "title": "Let’s Workout",
+      "description": "Fitness app with AI chatbot, BMI tracking and diet planning using Gemini",
+      "techStack": ["React","Firebase","Gemini","Bootstrap"]
+    },
+    {
+      "id": "proj4",
+      "type": "Project",
+      "title": "AI Resume Analyzer (ATS)",
+      "description": "Resume screening tool using Gemini Pro with ATS scoring",
+      "techStack": ["React","TypeScript","Gemini","Tailwind","Shadcn"]
+    },
+    {
+      "id": "proj5",
+      "type": "Project",
+      "title": "Authentication of NFT",
+      "description": "Blockchain-based NFT marketplace using Python + Flask",
+      "techStack": ["Python","Flask","React","Blockchain"]
+    },
+    {
+      "id": "proj6",
+      "type": "Project",
+      "title": "EcoCart",
+      "description": "Eco-friendly ecommerce platform with rewards and carbon tracking",
+      "techStack": ["React","Tailwind","Gemini","TypeScript"]
+    },
+    {
+      "id": "proj7",
+      "type": "Project",
+      "title": "Digi Elective",
+      "description": "Role-based elective selection system for colleges (MERN stack)",
+      "techStack": ["MongoDB","Express","React","Node.js"]
+    },
+    {
+      "id": "proj8",
+      "type": "Project",
+      "title": "Linkify",
+      "description": "Social media platform connecting students and alumni",
+      "techStack": ["React","Node.js","Express","MySQL","Prisma"]
+    },
+    {
+      "id": "proj9",
+      "type": "Project",
+      "title": "Money Magic",
+      "description": "Personal finance tracker with Firebase backend",
+      "techStack": ["React","Firebase","Bootstrap"]
+    },
+
+    { "id": "skill_frontend", "type": "SkillCategory", "title": "Frontend Development", "skills": ["HTML5","CSS","JavaScript","TypeScript","React","Next.js","Bootstrap","Tailwind","Shadcn"] },
+    { "id": "skill_backend", "type": "SkillCategory", "title": "Backend Development", "skills": ["Node.js","Express","MongoDB","Prisma","Postgres","Flask","FastAPI","GraphQL","Firebase"] },
+    { "id": "skill_tools", "type": "SkillCategory", "title": "Tools & Methods", "skills": ["Git","Agile","CI/CD","Webpack","Docker","Turborepo"] },
+    { "id": "skill_database", "type": "SkillCategory", "title": "Database & Cloud", "skills": ["MongoDB","MySQL","Postgres","Firebase","Supabase","AWS","Vercel","Netlify"] },
+    { "id": "skill_ml", "type": "SkillCategory", "title": "Data Science & ML", "skills": ["Machine Learning","Deep Learning","Transformers","LLMs","Generative AI","Agentic AI","Numpy","Pandas","Keras","Tensorflow","Pytorch"] }
+  ],
+
+  "edges": [
+    { "from": "user1", "to": "edu1", "type": "studied_at" },
+    { "from": "user1", "to": "edu2", "type": "studied_at" },
+    { "from": "user1", "to": "edu3", "type": "studied_at" },
+    { "from": "user1", "to": "edu4", "type": "studied_at" },
+
+    { "from": "user1", "to": "exp1", "type": "worked_at" },
+    { "from": "user1", "to": "exp2", "type": "worked_at" },
+    { "from": "user1", "to": "exp3", "type": "worked_at" },
+
+    { "from": "user1", "to": "ach1", "type": "achieved" },
+    { "from": "user1", "to": "ach2", "type": "achieved" },
+    { "from": "user1", "to": "ach3", "type": "achieved" },
+    { "from": "user1", "to": "ach4", "type": "achieved" },
+    { "from": "user1", "to": "ach5", "type": "achieved" },
+    { "from": "user1", "to": "ach6", "type": "achieved" },
+    { "from": "user1", "to": "ach7", "type": "achieved" },
+    { "from": "user1", "to": "ach8", "type": "achieved" },
+
+    { "from": "user1", "to": "proj1", "type": "built" },
+    { "from": "user1", "to": "proj2", "type": "built" },
+    { "from": "user1", "to": "proj3", "type": "built" },
+    { "from": "user1", "to": "proj4", "type": "built" },
+    { "from": "user1", "to": "proj5", "type": "built" },
+    { "from": "user1", "to": "proj6", "type": "built" },
+    { "from": "user1", "to": "proj7", "type": "built" },
+    { "from": "user1", "to": "proj8", "type": "built" },
+    { "from": "user1", "to": "proj9", "type": "built" },
+
+    { "from": "user1", "to": "skill_frontend", "type": "skilled_in" },
+    { "from": "user1", "to": "skill_backend", "type": "skilled_in" },
+    { "from": "user1", "to": "skill_tools", "type": "skilled_in" },
+    { "from": "user1", "to": "skill_database", "type": "skilled_in" },
+    { "from": "user1", "to": "skill_ml", "type": "skilled_in" }
+  ]
+}

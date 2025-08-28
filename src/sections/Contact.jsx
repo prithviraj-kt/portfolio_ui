@@ -703,7 +703,7 @@ const Contact = () => {
       >
         <div className="container">
           <p style={{ margin: 0, color: "var(--text-secondary)" }}>
-            © {new Date().getFullYear()} Prithviraj Tagadina. All rights
+            © {new Date().getFullYear()} Prithviraj K Tagadinamani. All rights
             reserved.
           </p>
         </div>

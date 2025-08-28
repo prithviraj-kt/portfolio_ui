@@ -11,16 +11,16 @@ const Hero = () => {
   const typedElement = useRef(null);
 
   // Parallax effect on image
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      if (!imageRef.current) return;
-      const x = (window.innerWidth / 2 - e.pageX) / 50;
-      const y = (window.innerHeight / 2 - e.pageY) / 50;
-      imageRef.current.style.transform = `translate(${x}px, ${y}px)`;
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  // useEffect(() => {
+  //   const handleMouseMove = (e) => {
+  //     if (!imageRef.current) return;
+  //     const x = (window.innerWidth / 2 - e.pageX) / 50;
+  //     const y = (window.innerHeight / 2 - e.pageY) / 50;
+  //     imageRef.current.style.transform = `translate(${x}px, ${y}px)`;
+  //   };
+  //   window.addEventListener("mousemove", handleMouseMove);
+  //   return () => window.removeEventListener("mousemove", handleMouseMove);
+  // }, []);
 
   // Typed.js
   useEffect(() => {
@@ -64,8 +64,8 @@ const Hero = () => {
   };
 
   const socialLinks = [
-    { icon: <FaLinkedin />, url: "https://linkedin.com", label: "LinkedIn" },
-    { icon: <FaGithub />, url: "https://github.com", label: "GitHub" },
+    { icon: <FaLinkedin />, url: "https://www.linkedin.com/in/prithviraj-tagadinamani-934709196", label: "LinkedIn" },
+    { icon: <FaGithub />, url: "https://github.com/prithviraj-kt/", label: "GitHub" },
   ];
 
   return (

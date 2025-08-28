@@ -131,14 +131,14 @@ const Education = () => {
               className="vertical-timeline-element--education"
               date={item.date}
               dateClassName="timeline-date"
-              iconStyle={{
-                background: item.iconBg,
-                color: "#fff",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-              icon={item.icon}
+              // iconStyle={{
+              //   background: item.iconBg,
+              //   color: "#fff",
+              //   display: "flex",
+              //   alignItems: "center",
+              //   justifyContent: "center",
+              // }}
+              // icon={item.icon}
               visible={inView}
               contentStyle={{
                   background: 'rgba(255, 255, 255, 0.1)',
@@ -150,7 +150,7 @@ const Education = () => {
                   WebkitBackdropFilter: 'blur(20px)'
                 }}
                 contentArrowStyle={{ borderRight: '7px solid rgba(255, 255, 255, 0.2)' }}
-                date="2022 - 2024"
+                // date="2022 - 2024"
                 iconStyle={{
                   background: 'var(--gradient-primary)',
                   color: '#fff',
