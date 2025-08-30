@@ -24,8 +24,8 @@ const BubbleBackground = () => {
       bubbles.current = [];
 
       for (let i = 0; i < BUBBLE_COUNT; i++) {
-        const size = Math.random() * 100 + 50;
-        const baseOpacity = isDark ? 0.1 : 0.3; // Higher opacity for light theme
+        const size = 100;
+        const baseOpacity = 0.1; // Higher opacity for light theme
         const opacity = baseOpacity + Math.random() * 0.2;
 
         bubbles.current.push({
@@ -69,8 +69,8 @@ const BubbleBackground = () => {
         } else {
           // Light theme: light grey bubbles
           const colors = [
-            `rgba(200, 200, 200, ${pulseOpacity})`, // light grey
-            // `rgba(180, 180, 180, ${pulseOpacity})`,   // medium light grey
+            // `rgba(200, 200, 200, ${pulseOpacity})`, // light grey
+            `rgba(180, 180, 180, ${pulseOpacity})`,   // medium light grey
             // `rgba(220, 220, 220, ${pulseOpacity})`,   // very light grey
           ];
           ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
