@@ -54,15 +54,15 @@ const BubbleBackground = () => {
         if (isDark) {
           // Dark theme: subtle blue/cyan bubbles
           const colors = [
-            `rgba(255, 0, 0, ${pulseOpacity})`, // red
-            `rgba(255, 165, 0, ${pulseOpacity})`, // orange
-            `rgba(255, 255, 0, ${pulseOpacity})`, // yellow
-            `rgba(0, 255, 0, ${pulseOpacity})`, // green
-            `rgba(0, 0, 255, ${pulseOpacity})`, // blue
-            `rgba(75, 0, 130, ${pulseOpacity})`, // indigo
-            `rgba(238, 130, 238, ${pulseOpacity})`, // violet
-            `rgba(255, 20, 147, ${pulseOpacity})`, // deep pink
-            `rgba(0, 255, 255, ${pulseOpacity})`, // cyan
+            `rgba(255, 255, 255, 0.13)`, // red
+            // `rgba(255, 165, 0, ${pulseOpacity})`, // orange
+            // `rgba(255, 255, 0, ${pulseOpacity})`, // yellow
+            // `rgba(0, 255, 0, ${pulseOpacity})`, // green
+            // `rgba(0, 0, 255, ${pulseOpacity})`, // blue
+            // `rgba(75, 0, 130, ${pulseOpacity})`, // indigo
+            // `rgba(238, 130, 238, ${pulseOpacity})`, // violet
+            // `rgba(255, 20, 147, ${pulseOpacity})`, // deep pink
+            // `rgba(0, 255, 255, ${pulseOpacity})`, // cyan
           ];
 
           ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
