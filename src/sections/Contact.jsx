@@ -189,7 +189,7 @@ const Contact = () => {
       label: "GitHub",
     },
     // { icon: <FaTwitter />, url: 'https://twitter.com', label: 'Twitter' },
-    // { icon: <FaInstagram />, url: 'https://instagram.com', label: 'Instagram' }
+    { icon: <FaInstagram />, url: 'https://www.instagram.com/prithviraj_k_t/', label: 'Instagram' }
   ];
 
   return (

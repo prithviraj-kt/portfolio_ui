@@ -2,8 +2,14 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Masonry from "react-masonry-css";
-import { FaGithub, FaExternalLinkAlt, FaSearch } from "react-icons/fa";
+import {
+  FaGithub,
+  FaExternalLinkAlt,
+  FaSearch,
+  FaInfoCircle,
+} from "react-icons/fa";
 import SectionTitle from "../components/SectionTitle";
+
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState("all");
   const [selectedProject, setSelectedProject] = useState(null);
@@ -82,7 +88,7 @@ const Projects = () => {
     },
     {
       id: 1,
-      title: "Let’s Workout",
+      title: "Let's Workout",
       category: ["genai", "web"],
       image:
         "https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg?auto=compress&cs=tinysrgb&w=600",
@@ -183,7 +189,7 @@ const Projects = () => {
         "Developed an eco-friendly e-commerce platform with dual portals for buyers and sellers using ReactJS and the Gemini model.",
         "For buyers: Implemented personalized eco-friendly product recommendations, a Green Coins reward system, gamification leaderboard by pin code, progress bar for coupon redemption, and group buying features.",
         "Enabled buyers to return packaging materials to reduce carbon footprint, with incentives tied to sustainability actions.",
-        "For sellers: Designed a system to calculate average carbon footprint per category and track each product’s impact, rewarding sellers with Green Coins for sustainable contributions.",
+        "For sellers: Designed a system to calculate average carbon footprint per category and track each product's impact, rewarding sellers with Green Coins for sustainable contributions.",
         "Integrated dynamic product listing, filtering, secure authentication, and detailed product pages.",
         "Created a dedicated seller/admin dashboard to manage products with add, update, and delete functionality.",
         "Implemented cart, checkout, and real-time updates for smooth transactions.",
@@ -213,7 +219,7 @@ const Projects = () => {
         "Students can opt for either open or professional electives each semester based on college-specific rules.",
         "The system enforces mutual exclusivity — selecting a professional elective disables the open elective option and vice versa.",
         "HODs can approve or reject student requests for electives related to their own department only.",
-        "HODs can also manage their department’s subject list — including adding, editing, or removing elective offerings.",
+        "HODs can also manage their department's subject list — including adding, editing, or removing elective offerings.",
         "Dean/Principal portal allows centralized viewing and filtering of elective selections department-wise and semester-wise.",
         "Implemented secure login, session management, and route-based access control for each portal.",
         "Streamlined the entire elective workflow, eliminating manual paperwork and reducing subject allocation conflicts.",
@@ -338,19 +344,27 @@ const Projects = () => {
       transition: { duration: 0.5 },
     },
   };
+  const gradients = [
+  "linear-gradient(135deg, #aa00ff, #ff00b7)", // 🔮 Purple → Pink (your original, kept)
+  "linear-gradient(135deg, #ff512f, #dd2476)", // ❤️‍🔥 Red → Magenta
+  "linear-gradient(135deg, #f7971e, #ffd200)", // 🟧 Orange → Yellow
+  "linear-gradient(135deg, #11998e, #38ef7d)", // 🌱 Teal → Green
+  "linear-gradient(135deg, #396afc, #2948ff)", // 🔵 Deep Blue → Electric Blue
+  "linear-gradient(135deg, #fc466b, #3f5efb)", // 💜 Pink → Indigo
+];
 
   const filterVariants = {
     active: {
       background: "var(--gradient-primary)",
       color: "white",
       scale: 1.05,
-      boxShadow: "var(--shadow-lg), 0 0 20px rgba(102, 126, 234, 0.3)"
+      boxShadow: "var(--shadow-lg), 0 0 20px rgba(102, 126, 234, 0.3)",
     },
     inactive: {
       background: "var(--gradient-surface)",
       color: "var(--text-primary)",
       scale: 1,
-      boxShadow: "var(--shadow-md)"
+      boxShadow: "var(--shadow-md)",
     },
   };
 
@@ -432,13 +446,12 @@ const Projects = () => {
                   boxShadow: "var(--shadow-lg)",
                   backdropFilter: "blur(20px)",
                   WebkitBackdropFilter: "blur(20px)",
-                  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
+                  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
                 }}
               >
                 <div
                   className="project-image-container"
                   style={{ position: "relative" }}
-                  onClick={() => openProjectDetails(project)}
                 >
                   <img
                     src={project.image}
@@ -454,6 +467,7 @@ const Projects = () => {
                     className="project-overlay"
                     initial={{ opacity: 0 }}
                     whileHover={{ opacity: 1 }}
+                    whileTap={{ opacity: 1 }}
                     transition={{ duration: 0.3 }}
                     style={{
                       position: "absolute",
@@ -467,6 +481,7 @@ const Projects = () => {
                       alignItems: "center",
                       cursor: "pointer",
                     }}
+                    onClick={() => openProjectDetails(project)}
                   >
                     <motion.div
                       whileHover={{ scale: 1.1 }}
@@ -531,7 +546,7 @@ const Projects = () => {
                           background: "var(--gradient-secondary)",
                           color: "white",
                           fontWeight: "500",
-                          boxShadow: "var(--shadow-sm)"
+                          boxShadow: "var(--shadow-sm)",
                         }}
                       >
                         {tech}
@@ -546,7 +561,7 @@ const Projects = () => {
                           background: "var(--gradient-accent)",
                           color: "white",
                           fontWeight: "500",
-                          boxShadow: "var(--shadow-sm)"
+                          boxShadow: "var(--shadow-sm)",
                         }}
                       >
                         +{project.techStack.length - 3}
@@ -558,41 +573,56 @@ const Projects = () => {
                     style={{
                       display: "flex",
                       justifyContent: "space-between",
+                      alignItems: "center",
                       marginTop: "var(--spacing-2)",
+                      gap: "var(--spacing-2)",
                     }}
                   >
                     <motion.a
                       href={project.githubLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
                       style={{
                         display: "flex",
                         alignItems: "center",
                         gap: "8px",
                         color: "var(--text-primary)",
                         textDecoration: "none",
+                        padding: "8px 12px",
+                        borderRadius: "8px",
+                        background: "rgba(255, 255, 255, 0.1)",
+                        border: "1px solid rgba(255, 255, 255, 0.2)",
+                        fontSize: "0.9rem",
+                        fontWeight: "500",
+                        transition: "all 0.3s ease",
                       }}
                     >
                       <FaGithub /> Code
                     </motion.a>
-                    {/* <motion.a
-                      href={project.liveLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
+
+                    <motion.button
+                      onClick={() => openProjectDetails(project)}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
                       style={{
                         display: "flex",
                         alignItems: "center",
                         gap: "8px",
                         color: "var(--primary-400)",
-                        textDecoration: "none",
+                        background: "rgba(102, 126, 234, 0.1)",
+                        border: "1px solid rgba(102, 126, 234, 0.3)",
+                        padding: "8px 12px",
+                        borderRadius: "8px",
+                        cursor: "pointer",
+                        fontSize: "0.9rem",
+                        fontWeight: "500",
+                        transition: "all 0.3s ease",
                       }}
                     >
-                      <FaExternalLinkAlt /> Live Demo
-                    </motion.a> */}
+                      <FaInfoCircle /> Details
+                    </motion.button>
                   </div>
                 </div>
               </motion.div>
@@ -609,7 +639,7 @@ const Projects = () => {
               exit={{ opacity: 0 }}
               style={{
                 position: "fixed",
-                top: 0,
+                top: "50px",
                 left: 0,
                 right: 0,
                 bottom: 0,
@@ -632,13 +662,14 @@ const Projects = () => {
                 style={{
                   width: "100%",
                   maxWidth: "900px",
-                  maxHeight: "90vh",
                   background: "var(--bg-surface)",
                   borderRadius: "12px",
-                  overflow: "hidden",
                   position: "relative",
+                  maxHeight: "90vh",
+                  overflowY: "auto", // entire modal scrolls
                 }}
               >
+                {/* Close button */}
                 <button
                   onClick={closeProjectDetails}
                   style={{
@@ -656,76 +687,55 @@ const Projects = () => {
                     cursor: "pointer",
                     zIndex: 10,
                     fontSize: "1.2rem",
-                    color: "var(--text-primary)"
+                    color: "var(--text-primary)",
                   }}
                 >
                   ✕
                 </button>
 
+                {/* Header */}
                 <div
-                  className="project-modal-image"
                   style={{
-                    width: "100%",
-                    height: "400px",
-                    position: "relative",
+                    padding: "20px 30px 10px",
+                    borderBottom: "1px solid rgba(255,255,255,0.1)",
                   }}
                 >
-                  <img
-                    src={selectedProject.image}
-                    alt={selectedProject.title}
+                  <h2
                     style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                    }}
-                  />
-                  <div
-                    style={{
-                      position: "absolute",
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      background:
-                        "linear-gradient(transparent, rgba(0,0,0,0.8))",
-                      padding: "30px 20px 20px",
+                      margin: 0,
+                      color: "var(--text-primary)",
+                      wordBreak: "break-word", // wrap long titles
                     }}
                   >
-                    <h2
-                      style={{
-                        color: "white",
-                        marginBottom: 0,
-                      }}
-                    >
-                      {selectedProject.title}
-                    </h2>
-                  </div>
+                    {selectedProject.title}
+                  </h2>
                 </div>
 
-                <div style={{ 
-                  padding: "30px",
-                  overflowY: "auto",
-                  maxHeight: "calc(90vh - 400px)"
-                }}>
+                {/* Body */}
+                <div style={{ padding: "30px" }}>
+                  {/* Description */}
                   <div
                     style={{
                       marginBottom: "20px",
                       lineHeight: 1.6,
                     }}
                   >
-                    <ul style={{
-                      margin: 0,
-                      paddingLeft: "20px",
-                      wordWrap: "break-word",
-                      overflowWrap: "break-word"
-                    }}>
+                    <ul
+                      style={{
+                        margin: 0,
+                        paddingLeft: "20px",
+                        wordWrap: "break-word",
+                        overflowWrap: "break-word",
+                      }}
+                    >
                       {selectedProject.description.map((item, idx) => (
                         <li
                           key={idx}
-                          style={{ 
-                            marginBottom: "10px", 
+                          style={{
+                            marginBottom: "10px",
                             lineHeight: "1.6",
                             wordWrap: "break-word",
-                            overflowWrap: "break-word"
+                            overflowWrap: "break-word",
                           }}
                         >
                           {item}
@@ -734,6 +744,7 @@ const Projects = () => {
                     </ul>
                   </div>
 
+                  {/* Tech stack */}
                   <div style={{ marginBottom: "20px" }}>
                     <h4 style={{ marginBottom: "10px" }}>Technologies Used</h4>
                     <div
@@ -749,9 +760,13 @@ const Projects = () => {
                           style={{
                             padding: "6px 12px",
                             borderRadius: "20px",
-                            background: "var(--primary-700)",
-                            color: "white",
+                            background: gradients[index % gradients.length], // cycle gradients
+                            color: "#ffffffff",
                             fontSize: "0.9rem",
+                            fontWeight: 500,
+                            boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
+                            transition:
+                              "transform 0.2s ease, box-shadow 0.2s ease",
                           }}
                         >
                           {tech}
@@ -760,11 +775,12 @@ const Projects = () => {
                     </div>
                   </div>
 
+                  {/* Links */}
                   <div
                     style={{
                       display: "flex",
                       gap: "15px",
-                      flexWrap: "wrap"
+                      flexWrap: "wrap",
                     }}
                   >
                     <a

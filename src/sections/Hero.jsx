@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Typed from "typed.js";
-import { FaLinkedin, FaGithub } from "react-icons/fa";
+import { FaLinkedin, FaGithub, FaInstagram } from "react-icons/fa";
 import { Link } from "react-scroll";
 import image from "../assets/image.png";
 
@@ -66,6 +66,7 @@ const Hero = () => {
   const socialLinks = [
     { icon: <FaLinkedin />, url: "https://www.linkedin.com/in/prithviraj-tagadinamani-934709196", label: "LinkedIn" },
     { icon: <FaGithub />, url: "https://github.com/prithviraj-kt/", label: "GitHub" },
+    {icon: <FaInstagram />, url: "https://www.instagram.com/prithviraj_k_t/", label: "Instagram" }
   ];
 
   return (

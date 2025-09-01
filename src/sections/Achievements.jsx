@@ -20,7 +20,7 @@ const Achievements = () => {
   const achievements = [
   {
     id: 1,
-    title: "Keynote Speaker",
+    title: "Chief Guest",
     description: "Chief Guest & keynote speaker at Codenex Tech Event, addressing 200+ participants.",
     icon: <FaCertificate />, // 🎓 Recognition
     color: "var(--accent-600)"
@@ -41,18 +41,19 @@ const Achievements = () => {
   },
   {
     id: 4,
-    title: "300+ DSA Problems",
-    description: "Demonstrated strong problem-solving skills by solving 300+ problems.",
-    icon: <FaTrophy />, // 🏆 Achievement
-    color: "var(--primary-600)"
-  },
-  {
-    id: 5,
     title: "Educator",
     description: "Conducted 5+ workshops on Git, Blockchain, and Web Development for 500+ students.",
     icon: <FaChalkboard />, // 📚 Teaching
     color: "var(--success-500)"
   },
+  {
+    id: 5,
+    title: "300+ DSA Problems",
+    description: "Demonstrated strong problem-solving skills by solving 300+ problems.",
+    icon: <FaTrophy />, // 🏆 Achievement
+    color: "var(--primary-600)"
+  },
+  
   {
     id: 6,
     title: "Placement Coordinator",
