@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaTimes, FaPaperPlane } from "react-icons/fa";
+import { FaTimes } from "react-icons/fa";
 import { useTheme } from "../context/ThemeContext";
 
-type Message = { sender: "user" | "bot"; text: any };
+type Message = { sender: "user" | "bot"; text: string };
 
 const ChatWithAI = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,14 +17,17 @@ const ChatWithAI = () => {
   const wsRef = useRef<WebSocket | null>(null);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
-  const THREAD_ID = "demo-user";
+  // keep same thread id for memory
+  const THREAD_ID = "demo-user"; // could also use uuid()
 
+  // auto-scroll when new message comes
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages, isBotTyping]);
 
+  // connect websocket when chat opens
   useEffect(() => {
     if (isOpen) {
       const ws = new WebSocket("ws://localhost:3000/ws");
@@ -39,13 +42,7 @@ const ChatWithAI = () => {
 
         if (data.type === "bot_response") {
           setIsBotTyping(false);
-
-          let content: any = data.text;
-          try {
-            content = JSON.parse(data.text); // if backend sends JSON string
-          } catch {}
-
-          setMessages((prev) => [...prev, { sender: "bot", text: content }]);
+          setMessages((prev) => [...prev, { sender: "bot", text: data.text }]);
         }
 
         if (data.type === "error") {
@@ -67,6 +64,7 @@ const ChatWithAI = () => {
     }
   }, [isOpen]);
 
+  // detect mobile viewport
   useEffect(() => {
     const determineIsMobile = () => {
       try {
@@ -84,6 +82,7 @@ const ChatWithAI = () => {
   const sendMessage = () => {
     if (!input.trim() || !wsRef.current) return;
 
+    // send to backend with thread_id
     wsRef.current.send(JSON.stringify({ text: input, thread_id: THREAD_ID }));
 
     setMessages((prev) => [...prev, { sender: "user", text: input }]);
@@ -91,6 +90,7 @@ const ChatWithAI = () => {
     setIsBotTyping(true);
   };
 
+  // Memoized Robot face component to prevent re-rendering
   const RobotFace = useMemo(() => {
     return () => (
       <motion.div
@@ -115,6 +115,7 @@ const ChatWithAI = () => {
           cursor: "pointer",
         }}
       >
+        {/* Eyes */}
         <div style={{ display: "flex", gap: "8px", marginBottom: "4px" }}>
           <motion.div
             animate={{ scale: [1, 1.2, 1] }}
@@ -128,7 +129,9 @@ const ChatWithAI = () => {
             }}
           />
           <motion.div
-            animate={isRobotHovered ? { scale: 0.1, y: 2 } : { scale: [1, 1.2, 1] }}
+            animate={
+              isRobotHovered ? { scale: 0.1, y: 2 } : { scale: [1, 1.2, 1] }
+            }
             transition={{
               duration: isRobotHovered ? 0.2 : 2,
               repeat: isRobotHovered ? 0 : Infinity,
@@ -143,6 +146,8 @@ const ChatWithAI = () => {
             }}
           />
         </div>
+
+        {/* Mouth */}
         <motion.div
           animate={{ scaleX: [1, 1.2, 1] }}
           transition={{ duration: 1.5, repeat: Infinity }}
@@ -154,6 +159,8 @@ const ChatWithAI = () => {
             boxShadow: "0 0 3px rgba(255, 255, 255, 0.6)",
           }}
         />
+
+        {/* Antenna */}
         <motion.div
           animate={{ rotate: [0, 5, -5, 0] }}
           transition={{ duration: 3, repeat: Infinity }}
@@ -172,6 +179,7 @@ const ChatWithAI = () => {
     );
   }, [isRobotHovered]);
 
+  // Memoized small robot face for messages
   const SmallRobotFace = useMemo(() => {
     return () => (
       <motion.div
@@ -190,69 +198,57 @@ const ChatWithAI = () => {
           boxShadow: "var(--shadow-sm)",
         }}
       >
+        {/* Eyes */}
         <div style={{ display: "flex", gap: "3px", marginBottom: "2px" }}>
-          <div style={{ width: "4px", height: "4px", borderRadius: "50%", background: "white" }} />
-          <div style={{ width: "4px", height: "4px", borderRadius: "50%", background: "white" }} />
+          <div
+            style={{
+              width: "4px",
+              height: "4px",
+              borderRadius: "50%",
+              background: "white",
+            }}
+          />
+          <div
+            style={{
+              width: "4px",
+              height: "4px",
+              borderRadius: "50%",
+              background: "white",
+            }}
+          />
         </div>
-        <div style={{ width: "6px", height: "1px", background: "white", borderRadius: "1px" }} />
+
+        {/* Mouth */}
+        <div
+          style={{
+            width: "6px",
+            height: "1px",
+            background: "white",
+            borderRadius: "1px",
+          }}
+        />
       </motion.div>
     );
   }, []);
 
-  const renderMessageContent = (m: Message) => {
-    if (typeof m.text === "string") return m.text;
-
-    if (m.text?.data && m.text.data[0]?.skills) {
-      return (
-        <div>
-          <h4 style={{ fontWeight: 600, marginBottom: "0.5rem" }}>
-            {m.text.instructions?.[0] || "Skills"}
-          </h4>
-          <ul
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(120px, 1fr))",
-              gap: "0.5rem",
-              padding: 0,
-              listStyle: "none",
-            }}
-          >
-            {m.text.data[0].skills.map((skill: string, idx: number) => (
-              <li
-                key={idx}
-                style={{
-                  background: "var(--glass-bg)",
-                  border: "1px solid var(--glass-border)",
-                  borderRadius: "20px",
-                  padding: "6px 10px",
-                  fontSize: "0.85rem",
-                  textAlign: "center",
-                  boxShadow: "var(--shadow-sm)",
-                }}
-              >
-                {skill}
-              </li>
-            ))}
-          </ul>
-        </div>
-      );
-    }
-
-    return JSON.stringify(m.text);
-  };
-
   return (
     <>
+      {/* Floating button with robot face */}
       {!isOpen && (
         <motion.button
           onClick={() => setIsOpen(true)}
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
-          whileHover={{ scale: 1.1, boxShadow: "var(--shadow-xl), 0 0 30px rgba(102, 126, 234, 0.4)" }}
+          whileHover={{
+            scale: 1.1,
+            boxShadow: "var(--shadow-xl), 0 0 30px rgba(102, 126, 234, 0.4)",
+          }}
           whileTap={{ scale: 0.9 }}
           style={{
             position: "fixed",
-            bottom: isMobile ? "max(env(safe-area-inset-bottom), 1rem)" : "2rem",
+            bottom: isMobile
+              ? "max(env(safe-area-inset-bottom), 1rem)"
+              : "2rem",
             right: isMobile ? "max(env(safe-area-inset-right), 1rem)" : "2rem",
             width: isMobile ? "56px" : "70px",
             height: isMobile ? "56px" : "70px",
@@ -263,6 +259,7 @@ const ChatWithAI = () => {
             justifyContent: "center",
             alignItems: "center",
             cursor: "pointer",
+            // border: "none",
             boxShadow: "var(--shadow-lg), 0 0 20px rgba(102, 126, 234, 0.3)",
             zIndex: 1000,
             backdropFilter: "blur(10px)",
@@ -274,10 +271,11 @@ const ChatWithAI = () => {
         </motion.button>
       )}
 
+      {/* Chat Overlay */}
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* background dim */}
+            {/* Background dim */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.7 }}
@@ -295,7 +293,8 @@ const ChatWithAI = () => {
               }}
               onClick={() => setIsOpen(false)}
             />
-            {/* chatbox */}
+
+            {/* Chatbox */}
             <motion.div
               initial={{ y: "100%", opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -306,9 +305,13 @@ const ChatWithAI = () => {
                 bottom: isMobile ? undefined : 0,
                 right: isMobile ? undefined : 0,
                 left: isMobile ? 0 : undefined,
-                top: isMobile ? "max(env(safe-area-inset-top), 12px)" : undefined,
+                top: isMobile
+                  ? "max(env(safe-area-inset-top), 12px)"
+                  : undefined,
                 width: isMobile ? "100vw" : "min(460px, 95vw)",
-                height: isMobile ? "calc(100vh - max(env(safe-area-inset-top), 12px))" : "min(620px, 92vh)",
+                height: isMobile
+                  ? "calc(100vh - max(env(safe-area-inset-top), 12px))"
+                  : "min(620px, 92vh)",
                 background: "var(--gradient-surface)",
                 backdropFilter: "blur(20px)",
                 WebkitBackdropFilter: "blur(20px)",
@@ -317,11 +320,12 @@ const ChatWithAI = () => {
                 display: "flex",
                 flexDirection: "column",
                 zIndex: 1999,
-                boxShadow: "var(--shadow-xl), 0 0 40px rgba(102, 126, 234, 0.2)",
+                boxShadow:
+                  "var(--shadow-xl), 0 0 40px rgba(102, 126, 234, 0.2)",
                 border: "1px solid var(--glass-border)",
               }}
             >
-              {/* header */}
+              {/* Header */}
               <div
                 style={{
                   padding: isMobile ? "1.25rem 1rem" : "1.5rem",
@@ -335,34 +339,49 @@ const ChatWithAI = () => {
                   boxShadow: "var(--shadow-md)",
                 }}
               >
-                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "12px" }}
+                >
                   <RobotFace />
                   <div>
-                    <h3 style={{ margin: 0, fontSize: "1.1rem", fontWeight: "600" }}>AKIRA</h3>
+                    <h3
+                      style={{
+                        margin: 0,
+                        fontSize: "1.1rem",
+                        fontWeight: "600",
+                      }}
+                    >
+                      AKIRA 
+                    </h3>
+                    <p style={{ margin: 0, fontSize: "0.8rem", opacity: 0.8 }}>
+                      {/* Powered by AI */}
+                    </p>
                   </div>
                 </div>
-                <motion.button
-                  aria-label="Close chat"
-                  onClick={() => setIsOpen(false)}
-                  whileHover={{ scale: 1.1, rotate: 90 }}
-                  whileTap={{ scale: 0.9 }}
-                  style={{
-                    background: "rgba(255, 255, 255, 0.22)",
-                    border: "none",
-                    borderRadius: "50%",
-                    width: isMobile ? "32px" : "35px",
-                    height: isMobile ? "32px" : "35px",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    cursor: "pointer",
-                    color: "white",
-                    backdropFilter: "blur(10px)",
-                    WebkitBackdropFilter: "blur(10px)",
-                  }}
-                >
-                  <FaTimes />
-                </motion.button>
+                <div style={{ display: "flex", gap: isMobile ? 8 : 10 }}>
+                  <motion.button
+                    aria-label="Close chat"
+                    onClick={() => setIsOpen(false)}
+                    whileHover={{ scale: 1.1, rotate: 90 }}
+                    whileTap={{ scale: 0.9 }}
+                    style={{
+                      background: "rgba(255, 255, 255, 0.22)",
+                      border: "none",
+                      borderRadius: "50%",
+                      width: isMobile ? "32px" : "35px",
+                      height: isMobile ? "32px" : "35px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      cursor: "pointer",
+                      color: "white",
+                      backdropFilter: "blur(10px)",
+                      WebkitBackdropFilter: "blur(10px)",
+                    }}
+                  >
+                    <FaTimes />
+                  </motion.button>
+                </div>
               </div>
 
               <div
@@ -385,10 +404,12 @@ const ChatWithAI = () => {
                   >
                     <RobotFace />
                     <p style={{ marginTop: "1rem", fontSize: "0.9rem" }}>
-                      Hello 👋 I’m Akira, the personal AI assistant of Mr.Prithviraj.
-                    </p>
-                    <p style={{ marginTop: "1rem", fontSize: "0.9rem" }}>
-                      I am under construction, please be patient. Thankyou
+                      <p>
+                        Hello 👋 I’m Akira, the personal AI assistant of Mr.Prithviraj.
+                      </p>
+                      <p>
+                        I’m currently being improved, we can chat later. Thank you for your patience!
+                      </p>
                     </p>
                   </motion.div>
                 )}
@@ -409,11 +430,16 @@ const ChatWithAI = () => {
                         display: "flex",
                         alignItems: "flex-end",
                         gap: "8px",
-                        justifyContent: m.sender === "user" ? "flex-end" : "flex-start",
+                        justifyContent:
+                          m.sender === "user" ? "flex-end" : "flex-start",
                       }}
                     >
                       {m.sender === "bot" && (
-                        <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} style={{ width: "30px", height: "30px" }}>
+                        <motion.div
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          style={{ width: "30px", height: "30px" }}
+                        >
                           <SmallRobotFace />
                         </motion.div>
                       )}
@@ -422,18 +448,31 @@ const ChatWithAI = () => {
                           display: "inline-block",
                           padding: "0.8rem 1.2rem",
                           borderRadius: "18px",
-                          background: m.sender === "user" ? "var(--gradient-primary)" : "var(--glass-bg)",
-                          color: m.sender === "user" ? "white" : "var(--text-primary)",
+                          background:
+                            m.sender === "user"
+                              ? "var(--gradient-primary)"
+                              : "var(--glass-bg)",
+                          color:
+                            m.sender === "user"
+                              ? "white"
+                              : "var(--text-primary)",
                           maxWidth: "70%",
                           wordWrap: "break-word",
                           boxShadow: "var(--shadow-sm)",
-                          border: m.sender === "user" ? "none" : "1px solid var(--glass-border)",
+                          border:
+                            m.sender === "user"
+                              ? "none"
+                              : "1px solid var(--glass-border)",
                         }}
                       >
-                        {renderMessageContent(m)}
+                        {m.text}
                       </span>
                       {m.sender === "user" && (
-                        <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} style={{ width: "30px", height: "30px" }}>
+                        <motion.div
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          style={{ width: "30px", height: "30px" }}
+                        >
                           <div
                             style={{
                               width: "30px",
@@ -456,6 +495,7 @@ const ChatWithAI = () => {
                   </motion.div>
                 ))}
 
+                {/* typing indicator */}
                 {isBotTyping && (
                   <motion.div
                     initial={{ opacity: 0 }}
@@ -485,73 +525,120 @@ const ChatWithAI = () => {
                       <div style={{ display: "flex", gap: "4px" }}>
                         <motion.div
                           animate={{ y: [0, -5, 0] }}
-                          transition={{ duration: 0.6, repeat: Infinity, delay: 0 }}
-                          style={{ width: "6px", height: "6px", background: "var(--text-primary)", borderRadius: "50%" }}
+                          transition={{
+                            duration: 0.6,
+                            repeat: Infinity,
+                            delay: 0,
+                          }}
+                          style={{
+                            width: "6px",
+                            height: "6px",
+                            borderRadius: "50%",
+                            background: "var(--text-secondary)",
+                          }}
                         />
                         <motion.div
                           animate={{ y: [0, -5, 0] }}
-                          transition={{ duration: 0.6, repeat: Infinity, delay: 0.2 }}
-                          style={{ width: "6px", height: "6px", background: "var(--text-primary)", borderRadius: "50%" }}
+                          transition={{
+                            duration: 0.6,
+                            repeat: Infinity,
+                            delay: 0.2,
+                          }}
+                          style={{
+                            width: "6px",
+                            height: "6px",
+                            borderRadius: "50%",
+                            background: "var(--text-secondary)",
+                          }}
                         />
                         <motion.div
                           animate={{ y: [0, -5, 0] }}
-                          transition={{ duration: 0.6, repeat: Infinity, delay: 0.4 }}
-                          style={{ width: "6px", height: "6px", background: "var(--text-primary)", borderRadius: "50%" }}
+                          transition={{
+                            duration: 0.6,
+                            repeat: Infinity,
+                            delay: 0.4,
+                          }}
+                          style={{
+                            width: "6px",
+                            height: "6px",
+                            borderRadius: "50%",
+                            background: "var(--text-secondary)",
+                          }}
                         />
                       </div>
                     </motion.div>
                   </motion.div>
                 )}
+
                 <div ref={messagesEndRef} />
               </div>
-
               <div
                 style={{
-                  padding: isMobile ? "1rem" : "1.25rem",
-                  borderTop: "1px solid var(--glass-border)",
-                  display: "flex",
-                  gap: "10px",
-                  background: "var(--gradient-surface)",
+                  padding: isMobile ? "0.75rem" : "1rem",
+                  borderTop: "1px solid var(--border-color)",
+                  background: "var(--glass-bg)",
+                  backdropFilter: "blur(10px)",
+                  WebkitBackdropFilter: "blur(10px)",
                   borderBottomLeftRadius: isMobile ? "0px" : "20px",
                   borderBottomRightRadius: isMobile ? "0px" : "20px",
                 }}
               >
-                {/* <input
-                  type="text"
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-                  placeholder="Type your message..."
+                <div
                   style={{
-                    flex: 1,
-                    padding: "0.8rem 1rem",
-                    borderRadius: "12px",
-                    border: "1px solid var(--glass-border)",
-                    outline: "none",
-                    background: "var(--glass-bg)",
-                    color: "var(--text-primary)",
-                    fontSize: "0.9rem",
-                  }}
-                /> */}
-                {/* <motion.button
-                  onClick={sendMessage}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  style={{
-                    background: "var(--gradient-primary)",
-                    border: "none",
-                    borderRadius: "12px",
-                    padding: "0.8rem 1rem",
                     display: "flex",
+                    gap: "0.8rem",
                     alignItems: "center",
-                    justifyContent: "center",
-                    cursor: "pointer",
-                    color: "white",
-                    boxShadow: "var(--shadow-md)",
                   }}
                 >
-                  <FaPaperPlane />
-                </motion.button> */}
+                  {/* <input
+                    type="text"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+                    placeholder="Type your message..."
+                    style={{
+                      flex: 1,
+                      padding: "0.8rem 1rem",
+                      borderRadius: "25px",
+                      border: "2px solid var(--border-color)",
+                      background: "var(--bg-primary)",
+                      color: "var(--text-primary)",
+                      fontSize: "0.9rem",
+                      transition: "all 0.3s ease",
+                      boxShadow: "var(--shadow-sm)"
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = "var(--primary-500)";
+                      e.target.style.boxShadow = "var(--shadow-md), 0 0 0 3px rgba(59, 130, 246, 0.1)";
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = "var(--border-color)";
+                      e.target.style.boxShadow = "var(--shadow-sm)";
+                    }}
+                  /> */}
+
+                  {/* <motion.button
+                    onClick={sendMessage}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    style={{
+                      background: "var(--gradient-primary)",
+                      color: "white",
+                      border: "none",
+                      padding: "0.8rem",
+                      borderRadius: "50%",
+                      cursor: "pointer",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      boxShadow: "var(--shadow-md)",
+                      width: "45px",
+                      height: "45px"
+                    }}
+                  >
+                    <FaPaperPlane />
+                  </motion.button> */}
+                </div>
               </div>
             </motion.div>
           </>
