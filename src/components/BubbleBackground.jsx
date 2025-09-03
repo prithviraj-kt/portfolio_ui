@@ -70,7 +70,7 @@ const BubbleBackground = () => {
         ctx.arc(bubble.x, bubble.y, bubble.size, 0, Math.PI * 2);
 
         // Subtle pulsing effect
-        const pulseOpacity = bubble.opacity + Math.sin(bubble.pulse) * 0.05;
+        const pulseOpacity = bubble.opacity + Math.sin(bubble.pulse) * 0.5;
 
         // Set colors based on theme
         if (isDark) {
@@ -81,7 +81,7 @@ const BubbleBackground = () => {
             // `rgba(255, 255, 0, ${pulseOpacity})`, // yellow
             // `rgba(0, 255, 0, ${pulseOpacity})`, // green
             // `rgba(0, 0, 255, ${pulseOpacity})`, // blue
-            `rgba(75, 0, 130, ${pulseOpacity})`, // indigo
+            `rgba(75, 0, 130, ${pulseOpacity*0.75})`, // indigo
             // `rgba(238, 130, 238, ${pulseOpacity})`, // violet
             // `rgba(255, 20, 147, ${pulseOpacity})`, // deep pink
             // `rgba(0, 255, 255, ${pulseOpacity})`, // cyan

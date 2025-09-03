@@ -3,9 +3,14 @@ import { motion } from "framer-motion";
 import Typed from "typed.js";
 import { FaLinkedin, FaGithub, FaInstagram } from "react-icons/fa";
 import { Link } from "react-scroll";
-import image from "../assets/image.png";
+import imageLight from "../assets/image_light.jpeg";
+import imageDark from "../assets/image_dark.jpeg";
+import { useTheme } from "../context/ThemeContext";
+
 
 const Hero = () => {
+
+  const {isDark} = useTheme();
   const imageRef = useRef(null);
   const typedRef = useRef(null);
   const typedElement = useRef(null);
@@ -197,11 +202,15 @@ const Hero = () => {
                 background: "var(--bg-card)",
               }}
             >
-              <img
-                src={image}
+              {isDark?<img
+                src={imageDark}
                 alt="Hero"
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
-              />
+              /> : <img
+                src={imageLight}
+                alt="Hero"
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              />}
             </div>
           </motion.div>
         </div>
