@@ -164,7 +164,7 @@ const ChatWithAI = () => {
   // Connect WebSocket when chat opens
   useEffect(() => {
     if (isOpen) {
-      const ws = new WebSocket("wss://13.235.99.236/ws");
+      const ws = new WebSocket("wss://190d2d90fbf4.ngrok-free.app/ws");
       wsRef.current = ws;
 
       ws.onopen = () => console.log("✅ Connected to WebSocket");
