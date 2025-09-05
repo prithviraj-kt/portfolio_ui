@@ -8,7 +8,6 @@ import BubbleBackground from "./components/BubbleBackground";
 import Loader from "./components/Loader";
 import CursorFollower from "./components/CursorFollower";
 import ChatWithAI from "./components/ChatWithAI";
-
 function App() {
   const [loading, setLoading] = useState(true);
 

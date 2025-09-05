@@ -74,7 +74,7 @@ const Loader = () => {
         transition={{ delay: 0.5 }}
         style={{ marginTop: '2rem', color: 'var(--text-primary)' }}
       >
-        Loading...
+        Welcome to My Portfolio
       </motion.h2>
     </motion.div>
   )

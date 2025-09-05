@@ -139,6 +139,43 @@ const BotMessage = ({ text }: { text: string }) => {
   );
 };
 
+// ---------- Typing Indicator ----------
+// ---------- Typing Indicator ----------
+const TypingIndicator = () => {
+  const colors = ["#FF4C4C", "#4CAF50", "#FFD93D", "#FF8C42", "#3D9CFF"];
+
+  return (
+    <div className="typing-indicator">
+      {colors.map((c, i) => (
+        <span
+          key={i}
+          className="typing-dot"
+          style={{ background: c, animationDelay: `${i * 0.15}s` }}
+        ></span>
+      ))}
+      <style>{`
+        .typing-indicator {
+          display: flex;
+          gap: 6px;
+          align-items: flex-end;
+          margin: 8px 0;
+          height: 16px;
+        }
+        .typing-dot {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          animation: bounceUpDown 1s infinite ease-in-out;
+        }
+        @keyframes bounceUpDown {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-8px); }
+        }
+      `}</style>
+    </div>
+  );
+};
+
 // ---------- MAIN COMPONENT ----------
 const ChatWithAI = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -164,7 +201,9 @@ const ChatWithAI = () => {
   // Connect WebSocket when chat opens
   useEffect(() => {
     if (isOpen) {
+      // const ws = new WebSocket("ws://localhost:3000/ws");
       const ws = new WebSocket("wss://d24g442oi5klok.cloudfront.net/ws");
+
       wsRef.current = ws;
 
       ws.onopen = () => console.log("✅ Connected to WebSocket");
@@ -225,6 +264,7 @@ const ChatWithAI = () => {
           alignItems: "center",
           position: "relative",
           cursor: "pointer",
+          zIndex: 1001,
         }}
       >
         <div style={{ display: "flex", gap: "8px", marginBottom: "4px" }}>
@@ -325,10 +365,11 @@ const ChatWithAI = () => {
               exit={{ y: "100%", opacity: 0 }}
               style={{
                 position: "fixed",
-                bottom: 0,
+                ...(isMobile
+                  ? { top: 0, height: "100vh" }
+                  : { bottom: 0, height: "600px" }),
                 right: 0,
                 width: isMobile ? "100vw" : "400px",
-                height: isMobile ? "100vh" : "600px",
                 background: "var(--gradient-surface)",
                 borderTopLeftRadius: isMobile ? 0 : 20,
                 borderTopRightRadius: isMobile ? 0 : 20,
@@ -346,6 +387,7 @@ const ChatWithAI = () => {
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "center",
+                  flexShrink: 0,
                   borderTopLeftRadius: isMobile ? 0 : 20,
                   borderTopRightRadius: isMobile ? 0 : 20,
                 }}
@@ -415,7 +457,7 @@ const ChatWithAI = () => {
                     </span>
                   </motion.div>
                 ))}
-                {isBotTyping && <p>🤖 Typing...</p>}
+                {isBotTyping && <TypingIndicator />}
                 <div ref={messagesEndRef} />
               </div>
 

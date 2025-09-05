@@ -7,10 +7,8 @@ import imageLight from "../assets/image_light.jpeg";
 import imageDark from "../assets/image_dark.jpeg";
 import { useTheme } from "../context/ThemeContext";
 
-
 const Hero = () => {
-
-  const {isDark} = useTheme();
+  const { isDark } = useTheme();
   const imageRef = useRef(null);
   const typedRef = useRef(null);
   const typedElement = useRef(null);
@@ -170,11 +168,11 @@ const Hero = () => {
                 color: "var(--text-secondary)",
               }}
             >
-              I’m a Software Development Engineer focused on building scalable,
+              I’m a self-taught engineer who designs and builds scalable,
               high-performance, and cost-efficient applications. With expertise
-              in system design, AI, and modern technologies, I craft solutions
-              that solve real-world problems, optimize resources, and drive
-              measurable impact.{" "}
+              in building scalable softwares, system design, AI, and modern
+              technologies, I craft solutions that solve real-world problems and
+              drive measurable impact{" "}
             </motion.p>
           </motion.div>
 
@@ -202,15 +200,19 @@ const Hero = () => {
                 background: "var(--bg-card)",
               }}
             >
-              {isDark?<img
-                src={imageDark}
-                alt="Hero"
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
-              /> : <img
-                src={imageLight}
-                alt="Hero"
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
-              />}
+              {isDark ? (
+                <img
+                  src={imageDark}
+                  alt="Hero"
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                />
+              ) : (
+                <img
+                  src={imageLight}
+                  alt="Hero"
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                />
+              )}
             </div>
           </motion.div>
         </div>

@@ -20,7 +20,7 @@ const Achievements = () => {
   const achievements = [
   {
     id: 1,
-    title: "Chief Guest",
+    title: "Chief Guest & Keynote Speaker",
     description: "Chief Guest & keynote speaker at Codenex Tech Event, addressing 200+ participants.",
     icon: <FaCertificate />, // 🎓 Recognition
     color: "var(--accent-600)"
