@@ -140,7 +140,6 @@ const BotMessage = ({ text }: { text: string }) => {
 };
 
 // ---------- Typing Indicator ----------
-// ---------- Typing Indicator ----------
 const TypingIndicator = () => {
   const colors = ["#FF4C4C", "#4CAF50", "#FFD93D", "#FF8C42", "#3D9CFF"];
 
@@ -189,8 +188,6 @@ const ChatWithAI = () => {
   const wsRef = useRef<WebSocket | null>(null);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
-  const THREAD_ID = "demo-user";
-
   // Auto-scroll
   useEffect(() => {
     if (messagesEndRef.current) {
@@ -201,9 +198,7 @@ const ChatWithAI = () => {
   // Connect WebSocket when chat opens
   useEffect(() => {
     if (isOpen) {
-      // const ws = new WebSocket("ws://localhost:3000/ws");
       const ws = new WebSocket("wss://d24g442oi5klok.cloudfront.net/ws");
-
       wsRef.current = ws;
 
       ws.onopen = () => console.log("✅ Connected to WebSocket");
@@ -224,7 +219,6 @@ const ChatWithAI = () => {
       };
 
       ws.onclose = () => console.log("❌ WebSocket closed");
-
       return () => ws.close();
     }
   }, [isOpen]);
@@ -233,9 +227,8 @@ const ChatWithAI = () => {
   useEffect(() => {
     const check = () => window.innerWidth <= 640;
     setIsMobile(check());
-    window.addEventListener("resize", () => setIsMobile(check()));
-    return () =>
-      window.removeEventListener("resize", () => setIsMobile(check()));
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
   }, []);
 
   const sendMessage = () => {
@@ -366,7 +359,7 @@ const ChatWithAI = () => {
               style={{
                 position: "fixed",
                 ...(isMobile
-                  ? { top: 0, height: "100vh" }
+                  ? { top: 0, height: "100dvh" } // 👈 dynamic viewport height
                   : { bottom: 0, height: "600px" }),
                 right: 0,
                 width: isMobile ? "100vw" : "400px",
@@ -418,7 +411,7 @@ const ChatWithAI = () => {
               {/* Messages */}
               <div
                 style={{
-                  flex: 1,
+                  flex: 1, // 👈 takes remaining space
                   padding: "1rem",
                   overflowY: "auto",
                   background: "transparent",
@@ -463,7 +456,14 @@ const ChatWithAI = () => {
 
               {/* Input */}
               <div
-                style={{ padding: "0.75rem", display: "flex", gap: "0.5rem" }}
+                style={{
+                  padding: "0.75rem",
+                  display: "flex",
+                  gap: "0.5rem",
+                  flexShrink: 0, // 👈 prevents shrinking
+                  background: "var(--gradient-surface)",
+                  paddingBottom: "calc(0.75rem + env(safe-area-inset-bottom))", // 👈 safe-area support
+                }}
               >
                 <input
                   type="text"
