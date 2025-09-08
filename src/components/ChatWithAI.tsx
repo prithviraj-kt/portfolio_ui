@@ -176,39 +176,44 @@ const GirlAvatar = ({ onClick }: { onClick: () => void }) => {
       style={{
         width: "80px",
         height: "80px",
+        // overflow: "hidden",
+        // position: "relative",
         borderRadius: "50%",
-        overflow: "hidden",
-        position: "relative",
         cursor: "pointer",
         boxShadow: "0 4px 10px rgba(0,0,0,0.3)",
       }}
     >
-      <img
-        src="https://play-lh.googleusercontent.com/pfh4IASs74KV9lEVO5SUp-ZsKasjRMlNLXTtW-bvo932B1yz9iORzul7LVBaN8gGgfw" // 👉 replace with your own image
-        alt="Chat Assistant"
-        style={{ width: "100%", height: "100%", objectFit: "cover" }}
-      />
-      {/* Typing effect overlay */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: [0, 1, 0] }}
         transition={{ repeat: Infinity, duration: 3 }}
         style={{
           position: "absolute",
-          bottom: -20,
+          bottom: 100,
           left: "50%",
           transform: "translateX(-50%)",
           background: "var(--gradient-primary)",
           color: "white",
           fontSize: "0.8rem",
-          padding: "4px 10px",
-          borderRadius: "12px",
+          padding: "10px 10px",
+          borderRadius: "100px",
           whiteSpace: "nowrap",
           boxShadow: "0 2px 6px rgba(0,0,0,0.2)",
         }}
       >
-        Chat with me 💬
+        Chat with me 😊
       </motion.div>
+      <img
+        src="https://play-lh.googleusercontent.com/pfh4IASs74KV9lEVO5SUp-ZsKasjRMlNLXTtW-bvo932B1yz9iORzul7LVBaN8gGgfw" // 👉 replace with your own image
+        alt="Chat Assistant"
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          borderRadius: "50%",
+        }}
+      />
+      {/* Typing effect overlay */}
     </motion.div>
   );
 };
@@ -396,8 +401,9 @@ const ChatWithAI = () => {
                     }}
                   >
                     <p>
-                      👋 Hi, I’m Akira, Personal AI Assistant of Mr. Prithviraj.
-                      How can I help you today?
+                      👋 Hi, I’m Akira. Personal AI Assistant of
+                      <br />
+                      Mr. Prithviraj. How can I help you today?
                     </p>
                   </div>
                 ) : (
