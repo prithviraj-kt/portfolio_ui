@@ -2,17 +2,14 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaTimes, FaPaperPlane } from "react-icons/fa";
 import { useTheme } from "../context/ThemeContext";
-
 type Message = { sender: "user" | "bot"; text: string };
 
 // ---------- JSON HELPERS ----------
 function extractJSON(s: string) {
   if (typeof s !== "string") return null;
-
   try {
     return JSON.parse(s);
   } catch {}
-
   try {
     const clean = s
       .replace(/```(?:json)?/gi, "")
@@ -20,7 +17,6 @@ function extractJSON(s: string) {
       .trim();
     return JSON.parse(clean);
   } catch {}
-
   const start = s.indexOf("{");
   const end = s.lastIndexOf("}");
   if (start !== -1 && end > start) {
@@ -31,6 +27,7 @@ function extractJSON(s: string) {
   return null;
 }
 
+// ---------- BOT MESSAGE ----------
 const BotMessage = ({ text }: { text: string }) => {
   const data = extractJSON(text);
   if (!data) return <span>{text}</span>;
@@ -42,7 +39,6 @@ const BotMessage = ({ text }: { text: string }) => {
 
   return (
     <div style={{ display: "grid", gap: 8 }}>
-      {/* General summary */}
       {Array.isArray(data.general) && data.general.length > 0 && (
         <div>
           {data.general.map((g: string, i: number) => (
@@ -52,8 +48,6 @@ const BotMessage = ({ text }: { text: string }) => {
           ))}
         </div>
       )}
-
-      {/* Details sections */}
       {sections.map(([label, items]) => (
         <div key={label} style={{ marginTop: 6 }}>
           <strong style={{ textTransform: "capitalize" }}>{label}:</strong>
@@ -84,7 +78,6 @@ const BotMessage = ({ text }: { text: string }) => {
                 {it.description && (
                   <p style={{ marginTop: 4 }}>{it.description}</p>
                 )}
-
                 {Array.isArray(it.responsibilities) && (
                   <ul style={{ marginTop: 4, paddingLeft: 16 }}>
                     {it.responsibilities.map((r: string, j: number) => (
@@ -142,7 +135,6 @@ const BotMessage = ({ text }: { text: string }) => {
 // ---------- Typing Indicator ----------
 const TypingIndicator = () => {
   const colors = ["#FF4C4C", "#4CAF50", "#FFD93D", "#FF8C42", "#3D9CFF"];
-
   return (
     <div className="typing-indicator">
       {colors.map((c, i) => (
@@ -175,13 +167,58 @@ const TypingIndicator = () => {
   );
 };
 
+// ---------- Girl Avatar Button ----------
+const GirlAvatar = ({ onClick }: { onClick: () => void }) => {
+  return (
+    <motion.div
+      whileHover={{ scale: 1.05 }}
+      onClick={onClick}
+      style={{
+        width: "80px",
+        height: "80px",
+        borderRadius: "50%",
+        overflow: "hidden",
+        position: "relative",
+        cursor: "pointer",
+        boxShadow: "0 4px 10px rgba(0,0,0,0.3)",
+      }}
+    >
+      <img
+        src="https://play-lh.googleusercontent.com/pfh4IASs74KV9lEVO5SUp-ZsKasjRMlNLXTtW-bvo932B1yz9iORzul7LVBaN8gGgfw" // 👉 replace with your own image
+        alt="Chat Assistant"
+        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+      />
+      {/* Typing effect overlay */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: [0, 1, 0] }}
+        transition={{ repeat: Infinity, duration: 3 }}
+        style={{
+          position: "absolute",
+          bottom: -20,
+          left: "50%",
+          transform: "translateX(-50%)",
+          background: "var(--gradient-primary)",
+          color: "white",
+          fontSize: "0.8rem",
+          padding: "4px 10px",
+          borderRadius: "12px",
+          whiteSpace: "nowrap",
+          boxShadow: "0 2px 6px rgba(0,0,0,0.2)",
+        }}
+      >
+        Chat with me 💬
+      </motion.div>
+    </motion.div>
+  );
+};
+
 // ---------- MAIN COMPONENT ----------
 const ChatWithAI = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isBotTyping, setIsBotTyping] = useState(false);
-  const [isRobotHovered, setIsRobotHovered] = useState(false);
   const { isDark } = useTheme();
   const [isMobile, setIsMobile] = useState(false);
 
@@ -195,14 +232,12 @@ const ChatWithAI = () => {
     }
   }, [messages, isBotTyping]);
 
-  // Connect WebSocket when chat opens
+  // Connect WebSocket
   useEffect(() => {
     if (isOpen) {
       const ws = new WebSocket("wss://d24g442oi5klok.cloudfront.net/ws");
       wsRef.current = ws;
-
       ws.onopen = () => console.log("✅ Connected to WebSocket");
-
       ws.onmessage = (event) => {
         const data = JSON.parse(event.data);
         if (data.type === "bot_response") {
@@ -217,7 +252,6 @@ const ChatWithAI = () => {
           ]);
         }
       };
-
       ws.onclose = () => console.log("❌ WebSocket closed");
       return () => ws.close();
     }
@@ -239,102 +273,26 @@ const ChatWithAI = () => {
     setIsBotTyping(true);
   };
 
-  // Memoized Robot face
-  const RobotFace = useMemo(() => {
-    return () => (
-      <motion.div
-        whileHover={{ scale: 1.1 }}
-        onHoverStart={() => setIsRobotHovered(true)}
-        onHoverEnd={() => setIsRobotHovered(false)}
-        style={{
-          width: "60px",
-          height: "60px",
-          borderRadius: "50%",
-          background: "var(--gradient-primary)",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          position: "relative",
-          cursor: "pointer",
-          zIndex: 1001,
-        }}
-      >
-        <div style={{ display: "flex", gap: "8px", marginBottom: "4px" }}>
-          <motion.div
-            animate={{ scale: [1, 1.2, 1] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            style={{
-              width: "8px",
-              height: "8px",
-              borderRadius: "50%",
-              background: "white",
-            }}
-          />
-          <motion.div
-            animate={
-              isRobotHovered ? { scale: 0.1, y: 2 } : { scale: [1, 1.2, 1] }
-            }
-            transition={{
-              duration: isRobotHovered ? 0.2 : 2,
-              repeat: isRobotHovered ? 0 : Infinity,
-              delay: isRobotHovered ? 0 : 0.5,
-            }}
-            style={{
-              width: "8px",
-              height: "8px",
-              borderRadius: "50%",
-              background: "white",
-            }}
-          />
-        </div>
-        <motion.div
-          animate={{ scaleX: [1, 1.2, 1] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          style={{
-            width: "12px",
-            height: "2px",
-            background: "white",
-            borderRadius: "1px",
-          }}
-        />
-      </motion.div>
-    );
-  }, [isRobotHovered]);
-
   return (
     <>
       {/* Floating button */}
       {!isOpen && (
-        <motion.button
-          onClick={() => setIsOpen(true)}
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
+        <div
           style={{
             position: "fixed",
             bottom: isMobile ? "1rem" : "2rem",
             right: isMobile ? "1rem" : "2rem",
-            width: "70px",
-            height: "70px",
-            borderRadius: "50%",
-            background: "var(--gradient-primary)",
-            color: "white",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            cursor: "pointer",
             zIndex: 1000,
           }}
         >
-          <RobotFace />
-        </motion.button>
+          <GirlAvatar onClick={() => setIsOpen(true)} />
+        </div>
       )}
 
       {/* Chat Overlay */}
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Dim background */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.7 }}
@@ -350,8 +308,6 @@ const ChatWithAI = () => {
               }}
               onClick={() => setIsOpen(false)}
             />
-
-            {/* Chatbox */}
             <motion.div
               initial={{ y: "100%", opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -359,7 +315,7 @@ const ChatWithAI = () => {
               style={{
                 position: "fixed",
                 ...(isMobile
-                  ? { top: 0, height: "100dvh" } // 👈 dynamic viewport height
+                  ? { top: 0, height: "100dvh" }
                   : { bottom: 0, height: "600px" }),
                 right: 0,
                 width: isMobile ? "100vw" : "400px",
@@ -385,10 +341,17 @@ const ChatWithAI = () => {
                   borderTopRightRadius: isMobile ? 0 : 20,
                 }}
               >
-                <div
-                  style={{ display: "flex", alignItems: "center", gap: "12px" }}
-                >
-                  <RobotFace />
+                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                  <img
+                    src="https://play-lh.googleusercontent.com/pfh4IASs74KV9lEVO5SUp-ZsKasjRMlNLXTtW-bvo932B1yz9iORzul7LVBaN8gGgfw"
+                    alt="avatar"
+                    style={{
+                      width: 40,
+                      height: 40,
+                      borderRadius: "50%",
+                      objectFit: "cover",
+                    }}
+                  />
                   <h3 style={{ margin: 0 }}>AKIRA</h3>
                 </div>
                 <motion.button
@@ -398,8 +361,8 @@ const ChatWithAI = () => {
                     background: "rgba(255,255,255,0.2)",
                     border: "none",
                     borderRadius: "50%",
-                    width: "32px",
-                    height: "32px",
+                    width: 32,
+                    height: 32,
                     color: "white",
                     cursor: "pointer",
                   }}
@@ -411,47 +374,73 @@ const ChatWithAI = () => {
               {/* Messages */}
               <div
                 style={{
-                  flex: 1, // 👈 takes remaining space
+                  flex: 1,
                   padding: "1rem",
                   overflowY: "auto",
                   background: "transparent",
+                  display: "flex",
+                  flexDirection: "column",
                 }}
               >
-                {messages.map((m, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
+                {messages.length === 0 ? (
+                  <div
                     style={{
-                      marginBottom: "1rem",
-                      textAlign: m.sender === "user" ? "right" : "left",
+                      flex: 1,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "var(--text-secondary)",
+                      fontSize: "1rem",
+                      textAlign: "center",
+                      padding: "1rem",
                     }}
                   >
-                    <span
-                      style={{
-                        display: "inline-block",
-                        padding: "0.8rem 1.2rem",
-                        borderRadius: "18px",
-                        background:
-                          m.sender === "user"
-                            ? "var(--gradient-primary)"
-                            : "var(--glass-bg)",
-                        color:
-                          m.sender === "user" ? "white" : "var(--text-primary)",
-                        maxWidth: "70%",
-                        wordWrap: "break-word",
-                      }}
-                    >
-                      {m.sender === "bot" ? (
-                        <BotMessage text={m.text} />
-                      ) : (
-                        m.text
-                      )}
-                    </span>
-                  </motion.div>
-                ))}
-                {isBotTyping && <TypingIndicator />}
-                <div ref={messagesEndRef} />
+                    <p>
+                      👋 Hi, I’m Akira, Personal AI Assistant of Mr. Prithviraj.
+                      How can I help you today?
+                    </p>
+                  </div>
+                ) : (
+                  <>
+                    {messages.map((m, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        style={{
+                          marginBottom: "1rem",
+                          textAlign: m.sender === "user" ? "right" : "left",
+                        }}
+                      >
+                        <span
+                          style={{
+                            display: "inline-block",
+                            padding: "0.8rem 1.2rem",
+                            borderRadius: "18px",
+                            background:
+                              m.sender === "user"
+                                ? "var(--gradient-primary)"
+                                : "var(--glass-bg)",
+                            color:
+                              m.sender === "user"
+                                ? "white"
+                                : "var(--text-primary)",
+                            maxWidth: "70%",
+                            wordWrap: "break-word",
+                          }}
+                        >
+                          {m.sender === "bot" ? (
+                            <BotMessage text={m.text} />
+                          ) : (
+                            m.text
+                          )}
+                        </span>
+                      </motion.div>
+                    ))}
+                    {isBotTyping && <TypingIndicator />}
+                    <div ref={messagesEndRef} />
+                  </>
+                )}
               </div>
 
               {/* Input */}
@@ -460,9 +449,9 @@ const ChatWithAI = () => {
                   padding: "0.75rem",
                   display: "flex",
                   gap: "0.5rem",
-                  flexShrink: 0, // 👈 prevents shrinking
+                  flexShrink: 0,
                   background: "var(--gradient-surface)",
-                  paddingBottom: "calc(0.75rem + env(safe-area-inset-bottom))", // 👈 safe-area support
+                  paddingBottom: "calc(0.75rem + env(safe-area-inset-bottom))",
                 }}
               >
                 <input

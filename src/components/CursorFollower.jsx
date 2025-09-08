@@ -1,41 +1,60 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { useTheme } from "../context/ThemeContext";
 
 const TRAIL_COUNT = 8;
 
+// Hook to detect screen size
+function useMediaQuery(query) {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia(query);
+    if (media.matches !== matches) setMatches(media.matches);
+
+    const listener = () => setMatches(media.matches);
+    media.addEventListener("change", listener);
+    return () => media.removeEventListener("change", listener);
+  }, [matches, query]);
+
+  return matches;
+}
+
 const CursorFollower = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [showCursor, setShowCursor] = useState(false);
   const { isDark } = useTheme();
+  const timeoutRef = useRef(null);
+
+  // only enable on desktop (lg breakpoint and above)
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
 
   useEffect(() => {
+    if (!isDesktop) return;
+
     const mouseMove = (e) => {
       setMousePosition({
         x: e.clientX,
         y: e.clientY,
       });
+
+      // Show cursor while moving
+      setShowCursor(true);
+
+      // Reset timer → hide if no movement for 200ms
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(() => setShowCursor(false), 200);
     };
 
-    const handleMouseEnter = () => setShowCursor(true);
-    const handleMouseLeave = () => setShowCursor(false);
-
     window.addEventListener("mousemove", mouseMove);
-    document.addEventListener("mouseenter", handleMouseEnter);
-    document.addEventListener("mouseleave", handleMouseLeave);
-
-    if ("ontouchstart" in window || navigator.maxTouchPoints) {
-      setShowCursor(false);
-    } else {
-      setShowCursor(true);
-    }
 
     return () => {
       window.removeEventListener("mousemove", mouseMove);
-      document.removeEventListener("mouseenter", handleMouseEnter);
-      document.removeEventListener("mouseleave", handleMouseLeave);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
-  }, []);
+  }, [isDesktop]);
+
+  if (!isDesktop) return null; // don’t render anything on mobile/tablet
 
   // Different palettes for themes
   const COLORS = isDark
@@ -91,8 +110,10 @@ const CursorFollower = () => {
               border: `2px solid ${color.replace("0.7", "1")}`,
               boxShadow: isDark
                 ? `0 0 15px ${color.replace("0.4", "0.8")}`
-                : `0 0 25px ${color.replace("0.7", "1")}, 0 0 40px ${color.replace("0.7", "0.6")}`,
-              // mixBlendMode: isDark ? "screen" : "multiply", // better contrast
+                : `0 0 25px ${color.replace("0.7", "1")}, 0 0 40px ${color.replace(
+                    "0.7",
+                    "0.6"
+                  )}`,
             }}
           />
         );
