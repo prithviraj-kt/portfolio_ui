@@ -117,7 +117,7 @@ const Projects = () => {
         "bootstrap",
       ],
       liveLink: "https://your-lets-workout-demo.com",
-      githubLink: "https://ai-fitness-guru-8e733.web.app/",
+      githubLink: "https://d1ravszf4ic7qs.cloudfront.net",
       featured: true,
     },
     {

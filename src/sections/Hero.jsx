@@ -29,9 +29,9 @@ const Hero = () => {
   useEffect(() => {
     const options = {
       strings: [
+        "Full Stack Developer",
         "Software Developer",
-        "Gen AI Engineer",
-        "Machine Learning Engineer",
+        "Gen AI Developer",
         "Creative Thinker",
         "Problem Solver",
       ],

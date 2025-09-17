@@ -1,187 +1,129 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import {
-  FaCode,
-  FaPalette,
-  FaTools,
-  FaServer,
-  FaDatabase,
-  FaChevronDown,
-  FaChevronUp,
-} from "react-icons/fa";
 import SectionTitle from "../components/SectionTitle";
 
 const skillCategories = [
   {
     id: "frontend",
     title: "Frontend Development",
-    icon: <FaCode />,
     color: "var(--primary-600)",
     skills: [
-      { name: "HTML5", level: 95 },
-      { name: "CSS", level: 90 },
-      { name: "JavaScript (ES6+)", level: 90 },
-      { name: "TypeScript", level: 80 },
-      { name: "React.js", level: 95 },
-      { name: "Next.js", level: 85 },
-      { name: "Bootstrap", level: 85 },
-      { name: "Tailwind CSS", level: 85 },
-      { name: "Shad cn", level: 80 },
+      { name: "HTML5", imgSrc: "https://cdn.svgporn.com/logos/html-5.svg" },
+      { name: "CSS3", imgSrc: "https://cdn.svgporn.com/logos/css-3.svg" },
+      { name: "JavaScript (ES6+)", imgSrc: "https://cdn.svgporn.com/logos/javascript.svg" },
+      { name: "TypeScript", imgSrc: "https://cdn.svgporn.com/logos/typescript-icon.svg" },
+      { name: "React.js", imgSrc: "https://cdn.svgporn.com/logos/react.svg" },
+      { name: "Next.js", imgSrc: "https://cdn.svgporn.com/logos/nextjs-icon.svg" },
+      { name: "Bootstrap", imgSrc: "https://cdn.svgporn.com/logos/bootstrap.svg" },
+      { name: "Tailwind CSS", imgSrc: "https://cdn.svgporn.com/logos/tailwindcss-icon.svg" },
+      { name: "Shadcn", imgSrc: "https://avatars.githubusercontent.com/u/139895814?s=200&v=4" },
     ],
   },
   {
     id: "backend",
     title: "Backend Development",
-    icon: <FaServer />,
     color: "var(--primary-700)",
     skills: [
-      { name: "Node.js", level: 85 },
-      { name: "Express", level: 82 },
-
-      { name: "RESTful APIs", level: 82 },
-      { name: "Web sockets", level: 85 },
-      { name: "RESTful APIs", level: 80 },
-      { name: "Flask", level: 85 },
-      { name: "Fast Api", level: 85 },
-      { name: "GraphQL", level: 85 },
-      { name: "Firebase", level: 90 },
+      { name: "Node.js", imgSrc: "https://cdn.svgporn.com/logos/nodejs-icon.svg" },
+      { name: "Express", imgSrc: "https://upload.wikimedia.org/wikipedia/commons/6/64/Expressjs.png" },
+      { name: "RESTful APIs", imgSrc: "https://cdn-icons-png.flaticon.com/512/4144/4144789.png" },
+      { name: "WebSockets", imgSrc: "https://cdn-icons-png.flaticon.com/512/2092/2092710.png" },
+      { name: "Flask", imgSrc: "https://cdn.svgporn.com/logos/flask.svg" },
+      { name: "FastAPI", imgSrc: "https://cdn.svgporn.com/logos/fastapi-icon.svg" },
+      { name: "GraphQL", imgSrc: "https://cdn.svgporn.com/logos/graphql.svg" },
+      { name: "Firebase", imgSrc: "https://cdn.svgporn.com/logos/firebase.svg" },
     ],
   },
   {
     id: "database",
     title: "Database & Cloud",
-    icon: <FaDatabase />,
     color: "var(--accent-700)",
     skills: [
-      { name: "Mongoose", level: 80 },
-      { name: "MongoDB", level: 75 },
-      { name: "Prisma", level: 85 },
-      { name: "Mysql", level: 80 },
-      { name: "Postgress Sql", level: 85 },
-      { name: "Vector DB", level: 70 },
-      { name: "AWS", level: 70 },
-      { name: "Firebase", level: 85 },
-      { name: "SQL", level: 75 },
-      { name: "Supabase", level: 78 },
-      { name: "Vercel/Netlify", level: 90 },
+      { name: "Mongoose", imgSrc: "https://avatars.githubusercontent.com/u/7552965?s=200&v=4" },
+      { name: "MongoDB", imgSrc: "https://cdn.svgporn.com/logos/mongodb.svg" },
+      { name: "Prisma", imgSrc: "https://cdn.svgporn.com/logos/prisma.svg" },
+      { name: "MySQL", imgSrc: "https://cdn.svgporn.com/logos/mysql.svg" },
+      { name: "PostgreSQL", imgSrc: "https://cdn.svgporn.com/logos/postgresql.svg" },
+      { name: "Vector DB", imgSrc: "https://cdn-icons-png.flaticon.com/512/9516/9516408.png" },
+      { name: "AWS", imgSrc: "https://cdn.svgporn.com/logos/amazon-aws.svg" },
+      { name: "Firebase", imgSrc: "https://cdn.svgporn.com/logos/firebase.svg" },
+      { name: "SQL", imgSrc: "https://cdn-icons-png.flaticon.com/512/5815/5815869.png" },
+      { name: "Supabase", imgSrc: "https://cdn.svgporn.com/logos/supabase-icon.svg" },
+      { name: "Vercel/Netlify", imgSrc: "https://cdn.svgporn.com/logos/vercel-icon.svg" },
     ],
   },
   {
     id: "tools",
     title: "Tools & Methods",
-    icon: <FaTools />,
     color: "var(--accent-600)",
     skills: [
-      { name: "Git/GitHub", level: 85 },
-      { name: "Agile/Scrum", level: 80 },
-      { name: "Webpack", level: 75 },
-      { name: "CI/CD", level: 70 },
-      { name: "Performance Optimization", level: 85 },
-      { name: "Docker", level: 85 },
-      { name: "Cost Optimization", level: 80 },
-      { name: "Monorepo/ Turborepo", level: 80 },
+      { name: "Git/GitHub", imgSrc: "https://cdn.svgporn.com/logos/github-icon.svg" },
+      { name: "Agile/Scrum", imgSrc: "https://cdn-icons-png.flaticon.com/512/2111/2111615.png" },
+      { name: "Webpack", imgSrc: "https://cdn.svgporn.com/logos/webpack.svg" },
+      { name: "CI/CD", imgSrc: "https://cdn-icons-png.flaticon.com/512/906/906324.png" },
+      { name: "Performance Optimization", imgSrc: "https://cdn-icons-png.flaticon.com/512/1828/1828911.png" },
+      { name: "Docker", imgSrc: "https://cdn.svgporn.com/logos/docker-icon.svg" },
+      { name: "Cost Optimization", imgSrc: "https://cdn-icons-png.flaticon.com/512/1907/1907445.png" },
+      { name: "Monorepo/Turborepo", imgSrc: "https://avatars.githubusercontent.com/u/87638736?s=200&v=4" },
     ],
   },
-
   {
-    id: "machine learing",
-    title: "Data Science and Tools",
-    icon: <FaDatabase />,
+    id: "ml",
+    title: "Data Science & ML",
     color: "var(--accent-700)",
     skills: [
-      { name: "Algebra", level: 80 },
-      { name: "Probablity and Statistics", level: 80 },
-      { name: "Machine Learning", level: 85 },
-      { name: "Deep Learning", level: 70 },
-      { name: "Transformers", level: 85 },
-      { name: "LLM's", level: 75 },
-      { name: "Generative AI", level: 78 },
-      { name: "Agentic AI", level: 80 },
-      { name: "Numpy", level: 80 },
-      { name: "Pandas", level: 75 },
-      { name: "Matplotlib", level: 70 },
-      { name: "Seaborne", level: 60 },
-      { name: "Keras", level: 90 },
-      { name: "Scikit-learn", level: 85 },
-      { name: "Tensorflow", level: 85 },
-      { name: "Pytorch", level: 85 },
+      { name: "Algebra", imgSrc: "https://cdn-icons-png.flaticon.com/512/263/263142.png" },
+      { name: "Probability & Statistics", imgSrc: "https://cdn-icons-png.flaticon.com/512/709/709496.png" },
+      { name: "Machine Learning", imgSrc: "https://cdn-icons-png.flaticon.com/512/3665/3665923.png" },
+      { name: "Deep Learning", imgSrc: "https://cdn-icons-png.flaticon.com/512/3528/3528226.png" },
+      { name: "Transformers", imgSrc: "https://cdn-icons-png.flaticon.com/512/3079/3079043.png" },
+      { name: "LLMs", imgSrc: "https://cdn-icons-png.flaticon.com/512/1995/1995574.png" },
+      { name: "Generative AI", imgSrc: "https://cdn-icons-png.flaticon.com/512/4712/4712109.png" },
+      { name: "Agentic AI", imgSrc: "https://cdn-icons-png.flaticon.com/512/4712/4712106.png" },
+      { name: "NumPy", imgSrc: "https://cdn.svgporn.com/logos/numpy.svg" },
+      { name: "Pandas", imgSrc: "https://cdn.svgporn.com/logos/pandas-icon.svg" },
+      { name: "Matplotlib", imgSrc: "https://matplotlib.org/stable/_static/images/logo2.svg" },
+      { name: "Seaborn", imgSrc: "https://seaborn.pydata.org/_static/logo-wide-lightbg.svg" },
+      { name: "Keras", imgSrc: "https://cdn.svgporn.com/logos/keras.svg" },
+      { name: "Scikit-learn", imgSrc: "https://cdn.svgporn.com/logos/scikit-learn.svg" },
+      { name: "TensorFlow", imgSrc: "https://cdn.svgporn.com/logos/tensorflow.svg" },
+      { name: "PyTorch", imgSrc: "https://cdn.svgporn.com/logos/pytorch-icon.svg" },
     ],
   },
 ];
 
-const Skills = () => {
-  const [ref, inView] = useInView({
-    threshold: 0.1,
-    triggerOnce: true,
-  });
+const containerVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.1 } },
+};
 
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: { y: 0, opacity: 1, transition: { duration: 0.5 } },
+};
+
+const dropdownVariants = {
+  collapsed: { height: 0, opacity: 0, transition: { duration: 0.3, ease: "easeInOut" } },
+  expanded: { height: "auto", opacity: 1, transition: { duration: 0.4, ease: "easeInOut", staggerChildren: 0.05 } },
+};
+
+const skillItemVariants = {
+  hidden: { x: -20, opacity: 0 },
+  visible: { x: 0, opacity: 1, transition: { duration: 0.3 } },
+};
+
+const Skills = () => {
+  const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
   const [expandedCategory, setExpandedCategory] = useState(null);
 
   const toggleCategory = (categoryId) => {
     setExpandedCategory(expandedCategory === categoryId ? null : categoryId);
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.5 },
-    },
-  };
-
-  const dropdownVariants = {
-    collapsed: {
-      height: 0,
-      opacity: 0,
-      transition: {
-        duration: 0.3,
-        ease: "easeInOut",
-      },
-    },
-    expanded: {
-      height: "auto",
-      opacity: 1,
-      transition: {
-        duration: 0.4,
-        ease: "easeInOut",
-        staggerChildren: 0.05,
-      },
-    },
-  };
-
-  const skillItemVariants = {
-    hidden: { x: -20, opacity: 0 },
-    visible: {
-      x: 0,
-      opacity: 1,
-      transition: { duration: 0.3 },
-    },
-  };
-
-  const pulseAnimation = {
-    scale: [1, 1.02, 1],
-    transition: {
-      duration: 2,
-      repeat: Infinity,
-      ease: "easeInOut",
-    },
-  };
-
   return (
-    <section id="skills" ref={ref}>
-      <div className="container">
+    <section id="skills" ref={ref} style={{ padding: "60px 0" }}>
+      <div className="container" style={{ maxWidth: 900, margin: "0 auto" }}>
         <SectionTitle
           title="Skills & Expertise"
           subtitle="Technical skills and professional competencies that I bring to the table"
@@ -193,208 +135,123 @@ const Skills = () => {
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
           style={{
-            maxWidth: "800px",
-            margin: "0 auto",
             display: "flex",
             flexDirection: "column",
-            gap: "var(--spacing-3)",
+            gap: "24px",
           }}
         >
-          {skillCategories.map((category, index) => (
-            <motion.div
-              key={category.id}
-              className="skill-category-dropdown glass"
-              variants={itemVariants}
-              style={{
-                borderRadius: "16px",
-                overflow: "hidden",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
-                boxShadow: "var(--shadow-lg)",
-                backdropFilter: "blur(20px)",
-                WebkitBackdropFilter: "blur(20px)",
-                transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-              }}
-              whileHover={{
-                boxShadow:
-                  "var(--shadow-xl), 0 0 30px rgba(102, 126, 234, 0.2)",
-                transform: "translateY(-2px)",
-              }}
-            >
-              <motion.button
-                className="category-header-button"
-                onClick={() => toggleCategory(category.id)}
+          {skillCategories.map((category) => {
+            const isExpanded = expandedCategory === category.id;
+
+            return (
+              <motion.div
+                key={category.id}
+                variants={itemVariants}
                 style={{
-                  width: "100%",
-                  padding: "var(--spacing-4)",
-                  background: "transparent",
-                  border: "none",
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  color: "var(--text-primary)",
-                  position: "relative",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                  borderRadius: "16px",
                   overflow: "hidden",
+                  boxShadow: "var(--shadow-lg)",
+                  background: "rgba(255, 255, 255, 0.02)",
                 }}
-                whileHover={{
-                  background: "rgba(255, 255, 255, 0.05)",
-                }}
-                whileTap={{ scale: 0.98 }}
               >
-                <motion.div
-                  className="header-content"
+                <button
+                  onClick={() => toggleCategory(category.id)}
                   style={{
+                    width: "100%",
                     display: "flex",
                     alignItems: "center",
-                    gap: "var(--spacing-3)",
+                    justifyContent: "space-between",
+                    padding: "20px",
+                    background: "transparent",
+                    border: "none",
+                    cursor: "pointer",
+                    color: "var(--text-primary)",
                   }}
                 >
-                  <motion.div
-                    style={{
-                      width: "50px",
-                      height: "50px",
-                      borderRadius: "12px",
-                      background: `linear-gradient(135deg, ${category.color}, rgba(255,255,255,0.2))`,
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      color: "white",
-                      fontSize: "1.3rem",
-                      boxShadow: "0 4px 15px rgba(0,0,0,0.2)",
-                    }}
-                    animate={
-                      expandedCategory === category.id ? pulseAnimation : {}
-                    }
-                  >
-                    {category.icon}
-                  </motion.div>
-                  <div>
-                    <h3
-                      style={{
-                        margin: 0,
-                        fontSize: "1.2rem",
-                        fontWeight: "600",
-                        background:
-                          expandedCategory === category.id
-                            ? `linear-gradient(135deg, ${category.color}, var(--primary-400))`
-                            : "none",
-                        WebkitBackgroundClip:
-                          expandedCategory === category.id ? "text" : "unset",
-                        WebkitTextFillColor:
-                          expandedCategory === category.id
-                            ? "transparent"
-                            : "var(--text-primary)",
-                        backgroundClip:
-                          expandedCategory === category.id ? "text" : "unset",
-                        color:
-                          expandedCategory === category.id
-                            ? "inherit"
-                            : "var(--text-primary)",
-                        transition: "all 0.3s ease",
-                      }}
-                    >
-                      {category.title}
-                    </h3>
-
-                    <p
-                      style={{
-                        margin: "4px 0 0 0",
-                        fontSize: "0.9rem",
-                        opacity: 0.7,
-                        color: "var(--text-secondary)",
-                      }}
-                    >
-                      {category.skills.length} skills
-                    </p>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  animate={{
-                    rotate: expandedCategory === category.id ? 180 : 0,
-                    scale: expandedCategory === category.id ? 1.1 : 1,
-                  }}
-                  transition={{ duration: 0.3 }}
-                  style={{
-                    color: category.color,
-                    fontSize: "1.2rem",
-                  }}
-                >
-                  {expandedCategory === category.id ? (
-                    <FaChevronUp />
-                  ) : (
-                    <FaChevronDown />
-                  )}
-                </motion.div>
-
-                {/* Animated background gradient */}
-                <motion.div
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    background: `linear-gradient(135deg, ${category.color}20, transparent)`,
-                    opacity: 0,
-                    zIndex: -1,
-                  }}
-                  animate={{
-                    opacity: expandedCategory === category.id ? 1 : 0,
-                  }}
-                  transition={{ duration: 0.3 }}
-                />
-              </motion.button>
-
-              <AnimatePresence>
-                {expandedCategory === category.id && (
-                  <motion.div
-                    className="skills-content"
-                    variants={dropdownVariants}
-                    initial="collapsed"
-                    animate="expanded"
-                    exit="collapsed"
-                    style={{
-                      padding: "0 var(--spacing-4) var(--spacing-4)",
-                      background: "rgba(255, 255, 255, 0.02)",
-                    }}
-                  >
+                  <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
                     <div
-                      className="skills-list"
-                      style={{ paddingTop: "var(--spacing-3)" }}
+                      style={{
+                        width: 50,
+                        height: 50,
+                        borderRadius: "12px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        background: `linear-gradient(135deg, ${category.color}, rgba(255,255,255,0.1))`,
+                        flexShrink: 0,
+                      }}
                     >
-                      {category.skills.map((skill, skillIndex) => (
-                        <motion.div
-                          key={skillIndex}
-                          className="skill-item"
-                          variants={skillItemVariants}
-                          style={{ marginBottom: "var(--spacing-3)" }}
-                        >
-                          <div
+                      <span style={{ fontSize: "1.5rem", color: "#fff" }}>📘</span>
+                    </div>
+                    <div>
+                      <div style={{ fontSize: "1.25rem", fontWeight: 600 }}>{category.title}</div>
+                      <div style={{ fontSize: "0.9rem", opacity: 0.7, marginTop: 4 }}>
+                        {category.skills.length} skills
+                      </div>
+                    </div>
+                  </div>
+                  <div style={{ fontSize: "1.25rem", color: category.color }}>
+                    {isExpanded ? "▲" : "▼"}
+                  </div>
+                </button>
+
+                <AnimatePresence initial={false}>
+                  {isExpanded && (
+                    <motion.div
+                      variants={dropdownVariants}
+                      initial="collapsed"
+                      animate="expanded"
+                      exit="collapsed"
+                      style={{ overflow: "hidden", padding: "0 20px 20px 20px" }}
+                    >
+                      <div
+                        style={{
+                          paddingTop: "16px",
+                          display: "grid",
+                          gridTemplateColumns: "repeat(auto-fit, minmax(100px, 1fr))",
+                          gap: "20px",
+                        }}
+                      >
+                        {category.skills.map((skill, idx) => (
+                          <motion.div
+                            key={`skill-${category.id}-${idx}`}
+                            variants={skillItemVariants}
                             style={{
                               display: "flex",
-                              justifyContent: "space-between",
+                              flexDirection: "column",
                               alignItems: "center",
-                              marginBottom: "8px",
+                              textAlign: "center",
+                              gap: "8px",
                             }}
                           >
-                            <span
+                            <img
+                              src={skill.imgSrc}
+                              alt={`${skill.name} icon`}
                               style={{
-                                fontWeight: "500",
+                                width: 48,
+                                height: 48,
+                                objectFit: "contain",
+                              }}
+                            />
+                            <div
+                              style={{
                                 color: "var(--text-primary)",
+                                fontSize: "1rem",
+                                fontWeight: 500,
                               }}
                             >
                               {skill.name}
-                            </span>
-                          </div>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
-          ))}
+                            </div>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            );
+          })}
         </motion.div>
       </div>
     </section>
