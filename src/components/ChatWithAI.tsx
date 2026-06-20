@@ -240,7 +240,8 @@ const ChatWithAI = () => {
   // Connect WebSocket
   useEffect(() => {
     if (isOpen) {
-      const ws = new WebSocket("wss://d24g442oi5klok.cloudfront.net/ws");
+      // const ws = new WebSocket("wss://d24g442oi5klok.cloudfront.net/ws");
+      const ws = new WebSocket(" ws://localhost:3000/ws")
       wsRef.current = ws;
       ws.onopen = () => console.log("✅ Connected to WebSocket");
       ws.onmessage = (event) => {
