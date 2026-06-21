@@ -204,7 +204,7 @@ const GirlAvatar = ({ onClick }: { onClick: () => void }) => {
         Chat with me 😊
       </motion.div>
       <img
-        src="https://play-lh.googleusercontent.com/pfh4IASs74KV9lEVO5SUp-ZsKasjRMlNLXTtW-bvo932B1yz9iORzul7LVBaN8gGgfw" // 👉 replace with your own image
+        src="https://img.magnific.com/free-vector/chatbot-chat-message-vectorart_78370-4104.jpg?semt=ais_hybrid&w=740&q=80" // 👉 replace with your own image
         alt="Chat Assistant"
         style={{
           width: "100%",
@@ -349,7 +349,7 @@ const ChatWithAI = () => {
               >
                 <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                   <img
-                    src="https://play-lh.googleusercontent.com/pfh4IASs74KV9lEVO5SUp-ZsKasjRMlNLXTtW-bvo932B1yz9iORzul7LVBaN8gGgfw"
+                    src="https://img.magnific.com/free-vector/chatbot-chat-message-vectorart_78370-4104.jpg?semt=ais_hybrid&w=740&q=80"
                     alt="avatar"
                     style={{
                       width: 40,

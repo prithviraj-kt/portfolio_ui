@@ -15,6 +15,38 @@ const Experience = () => {
 
   const experienceData = [
     {
+      role: "Research Engineer",
+      company: "Accenture Labs",
+      date: "Jan 2026 - Current",
+      description:
+        "Conducting applied AI research at Accenture Labs, focusing on Agentic AI systems, Graph RAG architectures, and multi-agent retrieval pipelines for enterprise software engineering.",
+      responsibilities: [
+        "Filed a US patent for a novel concept.",
+        "Spearheaded research for the LearnVintage agentic chatbot, identifying Graph RAG as the most effective approach for enhancing contextual accuracy and optimizing data retrieval efficiency by 30%.",
+        "Developed a comprehensive Proof of Concept (PoC) validating a multi-agent retrieval system, translating architectural findings into a research paper submitted to the Automated Software Engineering (ASE) 2026 conference.",
+        "Researched preservation of core software skills (e.g., debugging, code comprehension) in the generative AI era, deriving a skill atrophy framework from 30+ sources for a second ASE 2026 manuscript.",
+        "Engineered agentic workflows using LangGraph and LangChain with Claude and Gemini models, leveraging RAG and GraphRAG pipelines for intelligent knowledge retrieval.",
+      ],
+      technologies: [
+        "LangGraph",
+        "LangChain",
+        "GraphRAG",
+        "RAG",
+        "Claude (Anthropic)",
+        "Gemini",
+        "Perplexity",
+        "Python",
+        "Vector Databases",
+        "Agentic AI",
+        "Multi-Agent Systems",
+        "Prompt Engineering",
+      ],
+      companyLogo:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdUgiFE6u3KDAHFl1AxMRhHBRSH_cQfi-qSg&s",
+      icon: <FaCode />, // or <SiOpenai /> or any AI-related icon
+      iconBg: "var(--primary-600)",
+    },
+    {
       role: "Full stack Developer Intern",
       company: "Osnil Web Solutions Private Limited",
       date: "Nov 2022 – April 2023",
@@ -37,7 +69,7 @@ const Experience = () => {
         "Thunder client",
         "Mongoose ORM",
         "Git and Github",
-        "redux and recoil"
+        "redux and recoil",
       ],
       companyLogo:
         "https://media.licdn.com/dms/image/v2/D4D0BAQE4cTQGjdTZlw/company-logo_200_200/company-logo_200_200/0/1702990402709/osnil_logo?e=2147483647&v=beta&t=J0n9aK1LfrvMeFrF7Zq8kVaNUapzY4Rtds5YItFFOSo",
@@ -66,7 +98,7 @@ const Experience = () => {
         "Git and Github",
         "QR code libraries",
         "axios",
-        "redux"
+        "redux",
       ],
       companyLogo:
         "https://images.pexels.com/photos/4792733/pexels-photo-4792733.jpeg?auto=compress&cs=tinysrgb&w=100",
@@ -84,7 +116,13 @@ const Experience = () => {
         "Developed an add-post feature using Firebase Storage, Next.js, and Firebase Firestore, enabling efficient content management and boosting user engagement by 30%.",
         "Optimized Firebase Firestore for scalable storage solutions, handling over 500 posts and enhancing application performance",
       ],
-      technologies: ["Next.js", "Reactj.js", "JavaScript", "Bootstrap", "Firebase"],
+      technologies: [
+        "Next.js",
+        "Reactj.js",
+        "JavaScript",
+        "Bootstrap",
+        "Firebase",
+      ],
       companyLogo:
         "https://media.licdn.com/dms/image/v2/C4E0BAQH3WjhnnrWb6Q/company-logo_200_200/company-logo_200_200/0/1631715382926/younivapp_logo?e=2147483647&v=beta&t=u8mImlGqV40SmnVTZLe1pW5GnefHIEwk50qlt3qsQpM",
       icon: <FaBriefcase />,
@@ -117,19 +155,21 @@ const Experience = () => {
               // icon={item.icon}
               visible={inView}
               contentStyle={{
-                background: 'rgba(255, 255, 255, 0.1)',
-                color: 'var(--text-primary)',
-                border: '1px solid rgba(255, 255, 255, 0.2)',
-                borderRadius: '16px',
-                boxShadow: 'var(--shadow-lg)',
-                backdropFilter: 'blur(20px)',
-                WebkitBackdropFilter: 'blur(20px)'
+                background: "rgba(255, 255, 255, 0.1)",
+                color: "var(--text-primary)",
+                border: "1px solid rgba(255, 255, 255, 0.2)",
+                borderRadius: "16px",
+                boxShadow: "var(--shadow-lg)",
+                backdropFilter: "blur(20px)",
+                WebkitBackdropFilter: "blur(20px)",
               }}
-              contentArrowStyle={{ borderRight: '7px solid rgba(255, 255, 255, 0.2)' }}
+              contentArrowStyle={{
+                borderRight: "7px solid rgba(255, 255, 255, 0.2)",
+              }}
               iconStyle={{
-                background: 'var(--gradient-secondary)',
-                color: '#fff',
-                boxShadow: 'var(--shadow-md)'
+                background: "var(--gradient-secondary)",
+                color: "#fff",
+                boxShadow: "var(--shadow-md)",
               }}
               icon={<FaBriefcase />}
             >
@@ -139,7 +179,7 @@ const Experience = () => {
                 transition={{ duration: 0.5, delay: index * 0.2 }}
                 className="experience-content"
                 style={{
-                  color: 'var(--text-primary)',
+                  color: "var(--text-primary)",
                 }}
               >
                 <div

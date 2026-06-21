@@ -80,14 +80,11 @@ const Education = () => {
       date: "2024-2026",
       description:
         "Specialised in Generative AI, LLM and explored the world of Machine Learning, Deep learning.",
-      grade: "CPI: 7.14",
+      grade: "CPI: 8.06",
       icon: <FaGraduationCap />,
       skills: [
         "Machine Learning",
         "Deep Learning",
-        "NLP",
-        "Image Processing",
-        "Computer Vision",
         "LLM",
         "Transformers",
         "Data Science",
