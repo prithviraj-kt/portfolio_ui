@@ -227,7 +227,7 @@ const ChatWithAI = () => {
   const { isDark } = useTheme();
   const [isMobile, setIsMobile] = useState(false);
 
-  const wsRef = useRef<WebSocket | null>(null);
+  const historyRef = useRef<any[]>([]);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
   // Auto-scroll
@@ -237,29 +237,10 @@ const ChatWithAI = () => {
     }
   }, [messages, isBotTyping]);
 
-  // Connect WebSocket
+  // Reset chat history when chat closes
   useEffect(() => {
-    if (isOpen) {
-      const ws = new WebSocket("wss://dq3x4q2nr1te7.cloudfront.net/ws");
-      // const ws = new WebSocket(" ws://13.127.0.49:3000/ws")
-      wsRef.current = ws;
-      ws.onopen = () => console.log("✅ Connected to WebSocket");
-      ws.onmessage = (event) => {
-        const data = JSON.parse(event.data);
-        if (data.type === "bot_response") {
-          setIsBotTyping(false);
-          setMessages((prev) => [...prev, { sender: "bot", text: data.text }]);
-        }
-        if (data.type === "error") {
-          setIsBotTyping(false);
-          setMessages((prev) => [
-            ...prev,
-            { sender: "bot", text: "⚠️ " + data.message },
-          ]);
-        }
-      };
-      ws.onclose = () => console.log("❌ WebSocket closed");
-      return () => ws.close();
+    if (!isOpen) {
+      historyRef.current = [];
     }
   }, [isOpen]);
 
@@ -271,12 +252,51 @@ const ChatWithAI = () => {
     return () => window.removeEventListener("resize", check);
   }, []);
 
-  const sendMessage = () => {
-    if (!input.trim() || !wsRef.current) return;
-    wsRef.current.send(JSON.stringify({ text: input }));
-    setMessages((prev) => [...prev, { sender: "user", text: input }]);
+  const sendMessage = async () => {
+    if (!input.trim()) return;
+
+    const userMessage = input;
+
+    setMessages((prev) => [...prev, { sender: "user", text: userMessage }]);
     setInput("");
     setIsBotTyping(true);
+
+    try {
+      const response = await fetch(
+        "https://mmndgsip4c.execute-api.ap-south-1.amazonaws.com/chat",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            text: userMessage,
+            history: historyRef.current,
+          }),
+        }
+      );
+
+      if (!response.ok) throw new Error("Failed to fetch response");
+
+      const data = await response.json();
+
+      historyRef.current = data.history || [];
+
+      const botText =
+        typeof data.response === "string"
+          ? data.response
+          : JSON.stringify(data.response);
+
+      setMessages((prev) => [...prev, { sender: "bot", text: botText }]);
+    } catch (error) {
+      console.error(error);
+      setMessages((prev) => [
+        ...prev,
+        { sender: "bot", text: "⚠️ Something went wrong." },
+      ]);
+    } finally {
+      setIsBotTyping(false);
+    }
   };
 
   return (
