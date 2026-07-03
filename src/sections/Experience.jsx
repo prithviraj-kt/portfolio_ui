@@ -21,9 +21,9 @@ const Experience = () => {
       description:
         "Conducting applied AI research at Accenture Labs, focusing on Agentic AI systems, Graph RAG architectures, and multi-agent retrieval pipelines for enterprise software engineering.",
       responsibilities: [
-        "Filed a US patent for a novel concept.",
+        "Published Paper to ASE 2026 main track",
         "Spearheaded research for the LearnVintage agentic chatbot, identifying Graph RAG as the most effective approach for enhancing contextual accuracy and optimizing data retrieval efficiency by 30%.",
-        "Developed a comprehensive Proof of Concept (PoC) validating a multi-agent retrieval system, translating architectural findings into a research paper submitted to the Automated Software Engineering (ASE) 2026 conference.",
+        "Developed a comprehensive Proof of Concept (PoC) validating a multi-agent retrieval system, translating architectural findings into a research paper published to the Automated Software Engineering (ASE) 2026 conference.",
         "Researched preservation of core software skills (e.g., debugging, code comprehension) in the generative AI era, deriving a skill atrophy framework from 30+ sources for a second ASE 2026 manuscript.",
         "Engineered agentic workflows using LangGraph and LangChain with Claude and Gemini models, leveraging RAG and GraphRAG pipelines for intelligent knowledge retrieval.",
       ],

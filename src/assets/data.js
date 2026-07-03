@@ -24,7 +24,7 @@ export const user = {
       date: "2024-2026",
       description:
         "Specialised in Generative AI, LLM and explored the world of Machine Learning, Deep learning.",
-      grade: "CPI: 7.14",
+      grade: "CPI: 8.13",
       icon: <FaGraduationCap />,
       skills: [
         "Machine Learning",
@@ -116,6 +116,37 @@ export const user = {
 
 
    const experience = [
+    {
+  role: "AI Research Engineer",
+  company: "Accenture Labs",
+  date: "Jan 2026 – Present",
+  description:
+    "Conducting applied AI research on GraphRAG, multi-agent systems, and enterprise LLM applications to improve retrieval quality, reasoning, and software engineering workflows.",
+  responsibilities: [
+    "Evaluated GraphRAG, HybridRAG, and traditional RAG approaches to identify the most effective retrieval architecture for enterprise knowledge systems, achieving a 30% improvement in retrieval efficiency.",
+    "Designed and implemented a multi-agent retrieval proof of concept using LangGraph, enabling coordinated planning, retrieval, and response generation for complex information queries.",
+    "Conducted research on preserving software engineering skills in the GenAI era, developing a Skill Atrophy Framework through an extensive literature review and empirical analysis.",
+    "Co-authored two research papers submitted to ASE 2026, focusing on GraphRAG-based retrieval systems and software engineering practices in AI-assisted development."
+  ],
+  technologies: [
+    "Python",
+    "LangGraph",
+    "LangChain",
+    "GraphRAG",
+    "RAG",
+    "Knowledge Graphs",
+    "Claude",
+    "Gemini",
+    "Perplexity",
+    "FastAPI",
+    "Git",
+    "Research"
+  ],
+  companyLogo:
+    "https://upload.wikimedia.org/wikipedia/commons/c/cd/Accenture.svg",
+  icon: <FaBrain />,
+  iconBg: "var(--primary-600)",
+},
       {
         role: "Full stack Developer Intern",
         company: "Osnil Web Solutions Private Limited",
@@ -254,6 +285,34 @@ export const user = {
     ]
 
     const projectsData = [
+      {
+  id: 1,
+  title: "Supervised approach for Spatio temporal Framework for the Eye Movement Based Schizophrenia Recognition",
+  category: ["research", "ai", "Machine learning"],
+  image:
+    "https://images.pexels.com/photos/3825581/pexels-photo-3825581.jpeg?auto=compress&cs=tinysrgb&w=600",
+  description: [
+    "Developed a hybrid CNN-BiLSTM framework for automated schizophrenia detection from EEG signals using deep learning.",
+    "Designed a Confidence-Weighted Fusion mechanism to aggregate segment-level predictions into reliable subject-level diagnoses.",
+    "Achieved a mean Accuracy of 84.38%, AUC-ROC of 0.9012, and Balanced Accuracy of 84.37% through repeated cross-validation, demonstrating robust and consistent model performance.",
+    "Obtained 88.75% Sensitivity, 80.00% Specificity, and an F1-Score of 0.85, ensuring balanced detection of schizophrenia while minimizing false positives.",
+    "Implemented an end-to-end pipeline covering EEG preprocessing, temporal feature extraction, model training, evaluation, and statistical performance analysis using TensorFlow and Scikit-learn.",
+    "Demonstrated strong generalization across unseen subjects with low variance across validation folds, highlighting the model's potential for AI-assisted clinical decision support."
+  ],
+  techStack: [
+    "Python",
+    "TensorFlow",
+    "Keras",
+    "CNN",
+    "BiLSTM",
+    "Scikit-learn",
+    "NumPy",
+    "Pandas",
+    "Matplotlib"
+  ],
+  liveLink: "",
+  githubLink: "https://github.com/prithviraj-kt/your-repository"
+},
     {
       id: 1,
       title: "Neura Interview",
@@ -269,6 +328,7 @@ export const user = {
         "Designed a responsive and clean UI with Tailwind CSS and shadcn/ui components for accessibility and consistency.",
       ],
       techStack: [
+        "Langchain","Langgraph",
         "reactjs",
         "typescript",
         "expressjs",
