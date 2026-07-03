@@ -168,11 +168,13 @@ const Hero = () => {
                 color: "var(--text-secondary)",
               }}
             >
-              I’m a self-taught engineer who designs and builds scalable,
-              high-performance, and cost-efficient applications. With expertise
-              in building scalable softwares, system design, AI, and modern
-              technologies, I craft solutions that solve real-world problems and
-              drive measurable impact{" "}
+              Published paper in ASE 2026. I am a research engineer specializing
+              in applied AI and software engineering. I’m a self-taught engineer
+              who designs and builds scalable, high-performance, and
+              cost-efficient applications. With expertise in building scalable
+              softwares, system design, AI, and modern technologies, I craft
+              solutions that solve real-world problems and drive measurable
+              impact{" "}
             </motion.p>
           </motion.div>
 
