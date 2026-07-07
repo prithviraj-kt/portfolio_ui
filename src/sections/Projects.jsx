@@ -53,8 +53,8 @@ const Projects = () => {
         "shad cn",
         "AWS",
       ],
-      liveLink: "https://your-neura-interview-demo.com",
-      githubLink: "https://stately-lebkuchen-6c9d18.netlify.app/",
+      liveLink: "https://d7hc206cvztzy.cloudfront.net/",
+      githubLink: "",
     },
     {
       id: 0,
@@ -83,7 +83,7 @@ const Projects = () => {
         "gemini 2.5 pro model",
         "web containers",
       ],
-      liveLink: "https://your-auto-site-builder-demo.com",
+      liveLink: "",
       githubLink: "https://github.com/prithviraj-kt/auto-site-builder",
     },
     {
@@ -116,8 +116,8 @@ const Projects = () => {
         "gemini ai Models",
         "bootstrap",
       ],
-      liveLink: "https://your-lets-workout-demo.com",
-      githubLink: "https://d1ravszf4ic7qs.cloudfront.net",
+      liveLink: "https://d1ravszf4ic7qs.cloudfront.net",
+      githubLink: "",
       featured: true,
     },
     {
@@ -147,7 +147,7 @@ const Projects = () => {
         "lucide-react",
         "next-themes",
       ],
-      liveLink: "https://your-ats-demo.com",
+      liveLink: "",
       githubLink: "https://github.com/prithviraj-kt/ats",
     },
     {
@@ -175,7 +175,7 @@ const Projects = () => {
         "bootstrap",
         "reactjs",
       ],
-      liveLink: "https://your-nft-project-demo.com",
+      liveLink: "",
       githubLink:
         "https://github.com/prithviraj-kt/authentication-of-nft-using-python",
     },
@@ -236,7 +236,7 @@ const Projects = () => {
         "reactjs",
         "nodejs",
       ],
-      liveLink: "https://your-digi-elective-demo.com",
+      liveLink: "",
       githubLink: "https://github.com/prithviraj-kt/Elective_backend",
     },
     {
@@ -268,7 +268,7 @@ const Projects = () => {
         "mysql",
         "prisma",
       ],
-      liveLink: "https://linkify-demo.com", // Replace with actual live URL
+      liveLink: "",
       githubLink: "https://github.com/prithviraj-kt/Linkify_backend",
     },
     {
@@ -298,7 +298,7 @@ const Projects = () => {
         "firebase firestore",
         "firebase sdk",
       ],
-      liveLink: "https://your-dollar-account-demo.com",
+      liveLink: "",
       githubLink: "https://github.com/prithviraj-kt/Money-Magic",
     },
   ];
@@ -579,7 +579,7 @@ const Projects = () => {
                     }}
                   >
                     <motion.a
-                      href={project.githubLink}
+                      href={project.liveLink ? project.liveLink : project.githubLink}
                       target="_blank"
                       rel="noopener noreferrer"
                       whileHover={{ scale: 1.05 }}
@@ -599,7 +599,7 @@ const Projects = () => {
                         transition: "all 0.3s ease",
                       }}
                     >
-                      <FaGithub /> Code
+                      {project.liveLink ? <FaExternalLinkAlt /> : <FaGithub />} {project.liveLink ? "Live" : "Code"}
                     </motion.a>
 
                     <motion.button
@@ -784,7 +784,7 @@ const Projects = () => {
                     }}
                   >
                     <a
-                      href={selectedProject.githubLink}
+                      href={selectedProject.liveLink ? selectedProject.liveLink : selectedProject.githubLink}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn btn-secondary"
@@ -794,7 +794,7 @@ const Projects = () => {
                         gap: "8px",
                       }}
                     >
-                      <FaGithub /> View Code
+                      {selectedProject.liveLink ? <FaExternalLinkAlt /> : <FaGithub />} {selectedProject.liveLink ? "View Live" : "View Code"}
                     </a>
                   </div>
                 </div>
