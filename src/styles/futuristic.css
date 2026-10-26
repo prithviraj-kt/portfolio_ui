@@ -1,0 +1,119 @@
+
+/* ══════════════════════════════════════════════════════════
+   FUTURISTIC DESIGN UPGRADE - Award-winning Portfolio v2.0
+═══════════════════════════════════════════════════════════ */
+
+h1, h2, h3 {
+  font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* Premium scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #7c3aed, #3b82f6);
+  border-radius: 100px;
+}
+
+/* Selection highlight */
+::selection {
+  background: rgba(139, 92, 246, 0.35);
+  color: #e2e8f0;
+}
+
+/* Publications section background */
+#publications {
+  background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(139, 92, 246, 0.08) 0%, transparent 100%);
+}
+
+#publications .section-title-container h2 {
+  background: linear-gradient(135deg, #e2e8f0, #a78bfa, #818cf8) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+/* Home section */
+#home {
+  background: radial-gradient(ellipse 60% 80% at 30% 50%, rgba(99,102,241,0.06) 0%, transparent 100%);
+}
+
+/* Education section */
+#education {
+  background: radial-gradient(ellipse 60% 60% at 80% 80%, rgba(59,130,246,0.06) 0%, transparent 100%);
+}
+
+/* 3D glass card utility */
+.glass-card {
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+  transition: all 0.4s cubic-bezier(0.22,1,0.36,1);
+}
+
+.glass-card:hover {
+  border-color: rgba(139,92,246,0.3);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px rgba(139,92,246,0.15), inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+/* Achievement card hover */
+.achievement-card {
+  transition: all 0.4s cubic-bezier(0.22,1,0.36,1) !important;
+}
+
+.achievement-card:hover {
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 30px rgba(99,102,241,0.15) !important;
+  border-color: rgba(99,102,241,0.3) !important;
+  transform: translateY(-10px) scale(1.02) !important;
+}
+
+/* Timeline enhancements */
+.vertical-timeline::before {
+  background: linear-gradient(180deg, transparent 0%, rgba(99,102,241,0.25) 20%, rgba(99,102,241,0.25) 80%, transparent 100%) !important;
+  width: 2px !important;
+}
+
+.vertical-timeline-element-icon {
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.35), 0 0 20px rgba(99,102,241,0.2) !important;
+}
+
+/* Hero image glow */
+.hero-image {
+  filter: drop-shadow(0 20px 60px rgba(99,102,241,0.25));
+  transition: filter 0.4s ease;
+}
+
+.hero-image:hover {
+  filter: drop-shadow(0 30px 80px rgba(139,92,246,0.4));
+}
+
+/* Input focus glow */
+input:focus, textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(139,92,246,0.3), 0 0 20px rgba(139,92,246,0.1);
+  border-color: rgba(139,92,246,0.5) !important;
+}
+
+/* Scroll padding */
+html { scroll-padding-top: 80px; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  section { padding: 3rem 0; }
+}
+
+/* Neon glow utilities */
+.neon-glow {
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+}
+
+/* Futuristic section divider */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(139,92,246,0.3), rgba(59,130,246,0.3), transparent);
+  margin: 0;
+}

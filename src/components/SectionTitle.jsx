@@ -7,43 +7,6 @@ const SectionTitle = ({ title, subtitle }) => {
     triggerOnce: true
   })
 
-  const titleVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut"
-      }
-    }
-  }
-
-  const subtitleVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        delay: 0.2,
-        ease: "easeOut"
-      }
-    }
-  }
-
-  const decoratorVariants = {
-    hidden: { width: 0 },
-    visible: {
-      width: 80,
-      transition: {
-        duration: 0.8,
-        delay: 0.4,
-        ease: "easeOut"
-      }
-    }
-  }
-
   return (
     <div ref={ref} className="section-title-container" style={{ 
       textAlign: 'center',
@@ -51,38 +14,49 @@ const SectionTitle = ({ title, subtitle }) => {
     }}>
       <motion.h2
         className="section-title"
-        variants={titleVariants}
-        initial="hidden"
-        animate={inView ? "visible" : "hidden"}
-        style={{ margin: 0 }}
+        initial={{ opacity: 0, y: 30 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        style={{ 
+          margin: 0,
+          fontSize: 'clamp(2rem, 4vw, 3rem)',
+          fontWeight: 800,
+          letterSpacing: '-0.02em',
+          background: 'linear-gradient(135deg, var(--text-primary) 30%, var(--primary-400) 70%, var(--secondary-400) 100%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
+        }}
       >
         {title}
       </motion.h2>
 
+      {/* Animated underline */}
       <motion.div
-        className="section-title-decoration"
-        variants={decoratorVariants}
-        initial="hidden"
-        animate={inView ? "visible" : "hidden"}
+        initial={{ width: 0, opacity: 0 }}
+        animate={inView ? { width: '80px', opacity: 1 } : {}}
+        transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
         style={{
-          height: 3,
-          backgroundColor: 'var(--primary-500)',
+          height: '3px',
+          background: 'linear-gradient(90deg, var(--primary-400), var(--secondary-400))',
           margin: '1rem auto',
-          borderRadius: 3
+          borderRadius: '3px',
+          boxShadow: '0 0 10px rgba(59, 130, 246, 0.5)',
         }}
       />
 
       {subtitle && (
         <motion.p
           className="section-subtitle"
-          variants={subtitleVariants}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.4, ease: 'easeOut' }}
           style={{
-            fontSize: '1.1rem',
+            fontSize: '1.05rem',
             color: 'var(--text-secondary)',
             maxWidth: '700px',
-            margin: '0.5rem auto 0'
+            margin: '0.5rem auto 0',
+            lineHeight: 1.7,
           }}
         >
           {subtitle}

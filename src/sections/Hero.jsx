@@ -29,10 +29,10 @@ const Hero = () => {
   useEffect(() => {
     const options = {
       strings: [
+        "Senior Researcher @ Accenture Labs",
         "Full Stack Developer",
-        "Software Developer",
         "Gen AI Developer",
-        "Creative Thinker",
+        "AI Research Engineer",
         "Problem Solver",
       ],
       typeSpeed: 70,
@@ -168,13 +168,14 @@ const Hero = () => {
                 color: "var(--text-secondary)",
               }}
             >
-              Published paper in ASE 2026. I am a research engineer specializing
-              in applied AI and software engineering. I’m a self-taught engineer
-              who designs and builds scalable, high-performance, and
-              cost-efficient applications. With expertise in building scalable
-              softwares, system design, AI, and modern technologies, I craft
-              solutions that solve real-world problems and drive measurable
-              impact{" "}
+              Senior Researcher at{" "}
+              <strong style={{ color: "var(--primary-400)" }}>Accenture Labs</strong>{" "}
+              and published author at{" "}
+              <strong style={{ color: "var(--accent-400)" }}>IEEE/ACM ASE 2026 (CORE A*)</strong>.
+              Research engineer specializing in Agentic AI, LLMs, and applied
+              software engineering. Self-taught engineer who designs and builds
+              scalable, high-performance applications — crafting solutions
+              that solve real-world problems and drive measurable impact.{" "}
             </motion.p>
           </motion.div>
 

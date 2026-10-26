@@ -1,4 +1,5 @@
 import Hero from '../sections/Hero'
+import Publications from '../sections/Publications'
 import Education from '../sections/Education'
 import Experience from '../sections/Experience'
 import Achievements from '../sections/Achievements'
@@ -11,6 +12,7 @@ const Home = () => {
   return (
     <>
       <Hero />
+      <Publications />
       <Education />
       <Experience />
       <Achievements />
